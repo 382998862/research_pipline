@@ -1,0 +1,9 @@
+Tools	Description	Linkages
+TopHat2	A spliced read mapper for RNA-Seq	http://ccb.jhu.edu/software/tophat/index.shtml
+Cufflinks	Transcript assembly, differential expression, and differential regulation for RNA-Seq	http://cufflinks.cbcb.umd.edu/
+ASprofile	ASprofile is a suite of programs for extracting, quantifying and comparing alternative splicing (AS) events from RNA-seq data	http://ccb.jhu.edu/software/ASprofile/
+BLAST	Basic Local Alignment Search Tool	http://blast.ncbi.nlm.nih.gov/Blast.cgi
+DESeq	An R package for RNA-Seq Differential Expression Analysis based on a model using the negative binomial distribution	http://www.bioconductor.org/packages/release/bioc/html/DESeq.html
+EBSeq	An R package for RNA-Seq Differential Expression Analysis based on Bayesian approach	https://www.biostat.wisc.edu/~kendzior/EBSEQ/
+Cytoscape	An open source software platform for visualizing complex networks	http://www.cytoscape.org/
+topGO	An R package for gene ontology enrichment analysis	#

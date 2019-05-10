@@ -1,0 +1,9 @@
+11.15.13 v. b-1.0.4
+  Removed malloc.h include, for Mac compatibility.
+08.22.13 v. b-1.0.3
+  Fixed bugs in collect_fpkm.pl.
+03.15.13 v. b-1.0.2
+  Fixed bug in extract-as that allowed IR(_ON) in the first exon.
+11.19.12 v. b-1.0.1
+  Replaced loadTranscripts(), loadGoldRefs() in extract-as.c, exract-as-fpkm.c
+  with loadGTF() (reads more general GTF files).

@@ -1,0 +1,110 @@
+*** ASprofile - programs for extracting, quantifying and comparing alternative
+                splicing (AS) events among multiple conditions (e.g., tissues)
+
+Described in:
+L. Florea, L. Song and S.L. Salzberg (2013) 
+"Thousands of exon skipping events differentiate among splicing patterns
+in sixteen human tissues", F1000 Research, 2:188.
+
+Copyright (C) 2010-2013, and GNU GPL, by Liliana Florea
+
+
+
+Contains programs for extracting (extract-as), quantifying
+(extract-as-fpkm) and comparing (collect-fpkm) AS events from transcripts
+assembled from RNA-seq data in multiple conditions (e.g., tissues).
+
+Below is a description of each program. For an example of how to run
+them as a pipeline, see and run 'sh com.example'.
+
+A. extract-as
+=============
+
+Extracts AS events from transcripts assembled from RNA-seq data. It takes
+as input a GTF transcript file, such as that created by Cufflinks, and
+compares all pairs of transcripts within a gene to determine exon-intron
+structure differences that are indicative of an AS event. To determine AS
+events among multiple samples, the input file should be the concatenation
+of the transcript files of individual samples.
+
+ATTENTION: Because only transcripts of the same gene are being compared,
+gene names may first need to be reconciled among the samples. This can be done,
+for instance, by using a program such as cuffcompare to assign transcripts
+to a Gold Reference, such as the Ensembl or UCSC gene sets.
+
+The following types of events are currently implemented: exon skipping
+(SKIP), cassette exons (MSKIP), alternative transcript start and
+termination (TSS, TTS), retention of single or multiple introns (IR, MIR),
+and alternative exon (AE). For more details on the specific conditions
+please see the documents on our web site (http://genomics.jhu.edu/software/ASprofile/).
+
+Output format for the extract-as program:
+
+Examples:
+--------
+1) Alternative 5' terminal exon ('transcription start site') (TSS)
+104540 TSS     ENSG00000114861 chr3    71064700        71064796        71064700        -       testes.492545.3 11      1       1       71001996,71015041,71019887,71021162,71021706,71026092,71026794,71026979,71037145,71050123,71064700      71008542,71015207,71019956,71021331,71021827,71026193,71026873,71027180,71037228,71050210,71064796      1.625980        7729    ENST00000327590 c       ~12
+
+2) Skipped exon (SKIP_ON,SKIP_OFF pair)
+1045415 SKIP_ON ENSG00000114861 chr3    71021162        71021331        71019956,71021162-71021331,71021706       -       testes.492545.3 11      8       1       71001996,71015041,71019887,71021162,71021706,71026092,71026794,71026979,71037145,71050123,71064700      71008542,71015207,71019956,71021331,71021827,71026193,71026873,71027180,71037228,71050210,71064796      1.625980        7729    ENST00000327590 c       =19
+1045416 SKIP_OFF        ENSG00000114861 chr3    71021162        71021331        71019956,71021706       -       adrenal.615395.3        16      >13     1       71001978,71015041,71019887,71021706,71026092,71026794,71026979,71037145,71050123,71064700,71090479,71096093,71101688,71102787,71161687,71247353 71008542,71015207,71019956,71021827,71026193,71026870,71027180,71037228,71050210,71064804,71090683,71096246,71101777,71102924,71161788,71247539 6.336870        8458    ENST00000493089 c       >19
+
+3) Intron retention (IR_ON, IR_OFF pair; IR_ON contains the intron within the large exon; in IR_OFF the intron is spliced out)
+1000023 IR_ON   ENSG00000144228 chr2    139322420       139322510       139322278-139322563     +       lung.131221.1   3       2       1       139318383,139322278,139326506   139318497,139322563,139330800      9.282499        4696
+1000024 IR_OFF  ENSG00000144228 chr2    139322420       139322510       139322278-139322420,139322510-139322563 +       white_blood.85315.1     7       5       1       139310128,139316592,139316852,139318375,139322278,139322510,139326506      139310251,139316769,139316907,139318497,139322420,139322563,139330781   25.504271       4954
+
+4) Alternative exon ends (5', 3', or both; for 5', 3', the other end of the exon must match; other end of the varying intron must match exactly, for AE, or approximately, for XAE)
+
+Legend:
+col_1   event_id
+col_2   event_type (TSS, TTS, SKIP_{ON,OFF}, XSKIP_{ON,OFF}, MSKIP_{ON,OFF}, XMSKIP_{ON,OFF}, IR_{ON,OFF}, XIR_{ON,OFF}, AE, XAE)
+col_3   gene_id
+col_4   chrom
+col_5   event_start
+col_6   event_end
+col_7   event_signature (for TSS, TTS - inside boundary of alternative marginal exon; for *SKIP_ON, the coordinates of the skipped exon(s); for *SKIP_OFF, the coordinates of the enclosing introns; for *IR_ON, the end coordinates of the long, intron-containing exon; for *IR_OFF, the listing of coordinates of all the exons along the path containing the retained intron; for *AE, the coordinates of the exon variant)
+col_8   strand
+col_9   txpt_id
+col_10  txpt_numexons
+col_11  this_exon (starting from 1, from the 5' end)
+col_12  num_alt_exons (e.g., 1 for skipped exon, more than 1 for multiple exon cassettes)
+col_13  txpt_exon_froms (exon start coordinates, 1-based, 5'-to-3')
+col_14  txpt_exon_tos (exon end coordinates, 1-based, 5'-to-3')
+col_15  txpt_FPKM
+col_16  txpt_len
+col_17  (optional, with '-r') corresponding reference transcript, from tmap file
+col_18  (optional, with '-r') relationship to reference transcript, from tmap file
+col_19  (optional, with '-r') closest exon number in reference transcript ('=' exons are identical, "<" upstream of reference exon, ">" downstream of reference exon, "~" overlaps reference exon)
+
+The same event may be discovered and reported multiple times, in
+different transcripts. For this reason, we recommend that you run the
+script summarize_as.pl to create a non-redundant listing (catalog) of
+all events. This format is also required for the rest of the programs
+in the ASprofile suite.
+
+
+B. extract-as-fpkm
+==================
+
+Calculates the FPKM of each event from those of transcripts harboring
+the event in a given sample, (optionally) allowing for a margin of error
+(W) at the boundaries of the exons and introns.
+
+Output form:
+event_id        event_type      gene_id chrom   event_start     event_end       event_pattern   strand  fpkm
+1000021	SKIP_ON	ENSG00000000457	chr1	169833510	169833649	169831938,169833510-169833649,169836037	-	3.7846400000
+
+Columns 1-8 are as described above. Column 9 gives the FPKM value in the input sample.
+
+
+C. collect-fpkm.pl
+==================
+
+For each AS event in the catalog, collects fpkm values for all samples,
+and calculates and compares splicing ratios across samples, as described
+in the paper. The results can be used to observe trends in the dynamics of
+AS profiles and select promising candidates for laboratory testing, but
+there is yet no rigorous statitical testing to assess  significance. We
+plan to add such a component in a future release.
+
+Contact: florea@jhu.edu

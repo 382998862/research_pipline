@@ -1,0 +1,368 @@
+》
+项目结果概述
+完成1个样品的转录组测序，获得$base_num Clean Data,Q30碱基百分比为$min_Q30。
+将样品的Clean Reads与指定的参考基因组进行序列比对，比对效率为$min_map_ratio。
+基于比对结果，进行可变剪接预测分析、基因结构优化分析以及新基因的发掘，发掘新基因$new_gene_num个，其中$new_gene_ann_num个得到功能注释。
+》
+一级标题
+1 实验流程
+》
+正文
+转录组测序实验流程包括样品检测、文库构建及其质量控制和上机测序。实验流程见下图：
+》
+图片
+图1 转录组测序实验流程图
+》
+二级标题
+1.1 样品检测
+》
+正文
+高质量的RNA是整个项目成功的基础，为保证得到的数据准确性，我们使用以下方法对样品进行检测，检测结果达到要求后方可进行建库：
+(1) Nanodrop检测RNA的纯度（OD260/280）、浓度、核酸吸收峰是否正常；
+(2) Agilent 2100精确检测RNA的完整性，检测指标包括：RIN值、28S/18S、图谱基线有无上抬、5S峰。
+》
+二级标题
+1.2 文库构建
+》
+正文
+样品检测合格后，进行文库构建，主要流程如下：
+(1) 用带有Oligo（dT）的磁珠富集真核生物mRNA；
+(2) 加入Fragmentation Buffer将mRNA进行随机打断；
+(3) 以mRNA为模板，用六碱基随机引物（random hexamers）合成第一条cDNA链，然后加入缓冲液、dNTPs、RNase H和DNA polymerase I合成第二条cDNA链，利用AMPure XP beads纯化cDNA；
+(4) 纯化的双链cDNA再进行末端修复、加A尾并连接测序接头，然后用AMPure XP beads进行片段大小选择；
+(5) 最后通过PCR富集得到cDNA文库。
+》
+二级标题
+1.3 文库质控
+》
+正文
+文库构建完成后，对文库质量进行检测，检测结果达到要求后方可进行上机测序，检测方法如下：
+(1) 使用Qubit2.0进行初步定量，使用Agilent 2100对文库的insert size进行检测，insert size符合预期后才可进行下一步实验。
+(2) Q-PCR方法对文库的有效浓度进行准确定量（文库有效浓度＞2nM），完成库检。
+》
+二级标题
+1.4 上机测序
+》
+正文
+库检合格后，不同文库按照目标下机数据量进行pooling，用IlluminaHiSeq平台进行测序。
+》
+一级标题
+2 生物信息学分析
+》
+二级标题
+2.1 生物信息学分析流程概括
+》
+正文
+将下机数据进行过滤得到Clean Data，与指定的参考基因组进行序列比对，得到的Mapped Data，进行插入片段长度检验、随机性检验等文库质量评估；进行可变剪接分析、新基因发掘和基因结构优化等结构水平分析。
+转录组生物信息分析流程见下图：
+》
+图片
+图2 转录组生物信息分析流程图
+》
+二级标题
+2.2 测序数据及其质量控制
+》
+正文
+基于边合成边测序（Sequencing By Synthesis，SBS）技术，Illumina HiSeq高通量测序平台对cDNA文库进行测序，产出大量的高质量Data，称为原始数据（Raw Data），其大部分碱基质量打分能达到或超过Q30。
+Raw Data通常以FASTQ格式提供，每个测序样品的Raw Data包括两个FASTQ文件，分别包含所有cDNA片段两端测定的Reads。
+FASTQ格式文件示意图如下：
+》
+图片
+图3 FASTQ格式文件示意图
+注：FASTQ文件中通常每4行对应一个序列单元：第一行以@开头，后面接着序列标识（ID）以及其它可选的描述信息；第二行为碱基序列，即Reads；第三行以“+”开头，后面接着可选的描述信息；第四行为Reads每个碱基对应的质量打分编码，长度必须和Reads的序列长度相同，该行中每个字符对应的ASCII值减去33，即为对应第二行碱基的测序质量值。
+》
+三级标题
+2.2.1 测序碱基质量值
+》
+正文
+碱基质量值（Quality Score或Q-score）是碱基识别（Base Calling）出错的概率的整数映射。通常使用的Phred碱基质量值公式[1]为：
+》
+图片
+公式1 质量值计算公式
+》
+正文
+其中，P为碱基识别出错的概率。下表给出了碱基质量值与碱基识别出错的概率的对应关系：
+》
+表格
+表1 碱基质量值与碱基识别出错的概率的对应关系表
+》
+正文
+碱基质量值越高表明碱基识别越可靠，准确度越高。比如，对于碱基质量值为Q20的碱基识别，100个碱基中有1个会识别出错，以此类推。
+样品原始数据碱基质量值分布图见下图：
+》
+图片集合
+图4 碱基测序错误率分布图
+注：横坐标为Reads的碱基位置，纵坐标为单碱基错误率。
+》
+正文
+测序错误率受测序仪本身、测序试剂、样品等多个因素共同影响。由于测序过程中化学试剂的消耗，测序错误率会随着测序序列(Sequenced Reads)长度的增加而升高。此特征是Illumina高通量测序平台所具有的。
+》
+三级标题
+2.2.2 测序碱基含量分布
+》
+正文
+碱基类型分布检查用于检测有无AT、GC分离现象,由于RNA-Seq所测的序列为随机打断的cDNA片段，因随机性打断及碱基互补配对原则，理论上，G和C、A和T的含量每个测序循环上应分别相等，且整个测序过程稳定不变，呈水平线。由于Reads 5’端的前几个碱基为随机引物序列存在一定的偏好性，因此会在碱基分布图中出现前端波动较大的现象。
+》
+图片集合
+图5 ATGC含量分布图
+注：横坐标为Reads的碱基位置，纵坐标为单碱基所占比例。
+》
+三级标题
+2.2.3 测序质量控制
+》
+正文
+在进行数据分析之前，首先需要确保这些Reads有足够高的质量，以保证后续分析的准确。百迈客对数据进行严格的质量控制，进行如下过滤方式：
+(1) 去除含有接头的Reads；
+(2) 去除低质量的Reads（包括去除N的比例大于10%的Reads；去除质量值Q≤10的碱基数占整条Read的50%以上的Reads）。
+经过上述一系列的质量控制之后得到的高质量的Clean Data，以FASTQ格式提供。
+》
+图片集合
+图6 原始数据组成
+注：Adapter related：含有接头Reads数占总Raw Reads数的比例。Low quality：过滤掉的低质量Reads数占总Raw Reads数的比例。Clean Reads：经过过滤得到的Clean Reads 数占总Raw Reads 数的比例。
+》
+三级标题
+2.2.4 测序数据产出统计
+》
+正文
+该项目样品数据产出统计见下表：
+》
+表格
+表2 测序数据统计表
+注：Samples：样品信息单样品名称；BMK-ID：百迈客样品分析编号；Clean reads:Clean Data中pair-end Reads总数；Clean bases：Clean Data总碱基数；GC content：Clean DataGC含量，即Clean Data中G和C两种碱基占总碱基的百分比；≥Q30%：Clean Data质量值大于或等于30的碱基所占的百分比。
+》
+二级标题
+2.3 转录组数据与参考基因组序列比对
+》
+正文
+本项目使用指定的基因组作为参考进行序列比对及后续分析。参考基因组下载地址见：$download。
+利用TopHat2[2]将Clean Reads与参考基因组进行序列比对，获取在参考基因组或基因上的位置信息，以及测序样品特有的序列特征信息。TopHat2是以比对软件Bowtie2[3]为基础，将转录组测序Reads比对到基因组上，通过分析比对结果识别外显子之间的剪接点（Splicing Junction）。这不仅为可变剪接分析提供了数据基础，还能够使更多的Reads比对到参考基因组，提高了测序数据的利用率。TopHat2分析流程如下图：
+》
+图片
+图7 TopHat2分析流程
+》
+正文
+比对过程可分为以下3部分：
+(1) 将Reads比对到已知转录组上（可选）；
+(2) 将未比对上的Reads整条比对到参考基因组上；
+(3) 将未比对上的Reads分段比对到参考基因组上。
+将比对到指定的参考基因组上的Reads称为Mapped Reads，基于Mapped  Reads进行后续信息分析。
+》
+三级标题
+2.3.1 比对效率统计
+》
+正文
+比对效率指Mapped Reads占Clean Reads的百分比，是转录组数据利用率的最直接体现。比对效率除了受数据测序质量影响外，还与指定的参考基因组组装的优劣、参考基因组与测序样品的生物学分类关系远近（亚种）有关。通过比对效率，可以评估所选参考基因组组装是否能满足信息分析的需求。
+》
+表格
+表3 样品测序数据与所选参考基因组的序列比对结果统计表
+注：BMK-ID：百迈客样品分析编号；Total Reads：Clean Reads数目，按单端计；Mapped Reads：比对到参考基因组上的Reads数目及在Clean Reads中占的百分比；Uniq Mapped Reads：比对到参考基因组唯一位置的Reads数目及在Clean Reads中占的百分比；Multiple Map Reads：比对到参考基因组多处位置的Reads数目及在Clean Reads中占的百分比；Reads Map to '+'：比对到参考基因组正链的Reads数目及在Clean Reads中占的百分比；Reads Map to '-'：比对到参考基因组负链的Reads数目及在Clean Reads中占的百分比。
+》
+三级标题
+2.3.2 比对结果作图
+》
+正文
+将比对到不同染色体上的Reads进行位置分布统计，绘制Mapped Reads在所选参考基因组上的覆盖深度分布图。
+》
+图片集合
+图8 Mapped Reads在参考基因组上的位置及覆盖深度分布图
+注：横坐标为染色体位置；纵坐标为覆盖深度以2为底的对数值，以10kb作为区间单位长度，划分染色体成多个小窗口（Window），统计落在各个窗口内的Mapped Reads作为其覆盖深度。蓝色为正链，绿色为负链。
+》
+正文
+统计Mapped Reads在指定的参考基因组不同区域（外显子、内含子和基因间区）的数目，绘制基因组不同区域上样品Mapped Reads的分布图，如下：
+》
+图片集合
+图9 基因组不同区域Reads分布图
+注：图中将基因组分为外显子区、基因间区、内含子区，区域大小按Map到相应区域的Reads在所有Mapped Reads中所占的百分比。
+》
+正文
+理论上，来自成熟mRNA的Reads应比对到外显子区。Reads比对到内含子是由于mRNA前体和发生可变剪切的内含子保留；Reads比对到基因间区是由于基因组注释不完善。
+》
+三级标题
+2.3.3 比对结果可视化
+》
+正文
+转录组测序Reads与参考基因组序列比对结果文件（通常为BAM格式）、物种参考基因组序列和注释文件，推荐使用整合基因组浏览器（IGV，Integrative Genomics Viewer）进行可视化浏览。IGV具有以下特点：
+(1) 能在不同尺度下显示单个或多个Reads在参考基因组上的位置，包括Reads在各个染色体上的分布情况和在注释的外显子、内含子、剪接接合区、基因间区的分布情况等；
+(2) 能在不同尺度下显示不同区域的Reads丰度，以反映不同区域的转录水平；
+(3) 能显示基因及其剪接异构体的注释信息；
+(4) 能显示其他注释信息；
+(5) 既可以从远程服务器端下载各种注释信息，又可以从本地加载注释信息。
+》
+图片
+图10 IGV浏览器界面
+》
+二级标题
+2.4 转录组文库质量评估
+》
+正文
+合格的转录组文库是转录组测序的必要条件，为确保文库的质量，从以下3个不同角度对转录组测序文库进行质量评估：
+(1) 通过检验插入片段在基因上的分布，评估mRNA片段化的随机性、mRNA的降解情况；
+(2) 通过插入片段的长度分布，评估插入片段长度的离散程度；
+(3) 通过绘制饱和度图，评估文库容量和Mapped Data是否充足。
+》
+三级标题
+2.4.1 mRNA片段化随机性检验
+》
+正文
+mRNA片段化后的插入片段大小选择，是从mRNA序列中独立随机地抽取子序列，mRNA数目越大、打断方式和时间控制得越合适，目的RNA每个部分被抽取到的可能性就越接近，mRNA片段化随机性越高，mRNA上覆盖的Reads越均匀。
+通过Mapped Reads在各mRNA转录本上的位置分布，模拟mRNA片段化结果，检验mRNA片段化的随机程度。如果mRNA存在严重降解，被降解的碱基序列不能被测序，即无Reads比对上。因此，通过查看Mapped Reads在mRNA转录本上的位置分布可了解mRNA的降解情况。样品Mapped Reads在mRNA转录本上的位置分布如下图：
+》
+图片集合
+图11 Mapped Reads在mRNA上的位置分布图
+注：横坐标为标准化后的mRNA位置，纵坐标为对应位置区间内Reads在总Mapped Reads中所占百分比。由于参考的mRNA长度不同，作图时对把每个mRNA按照长度划分成100个区间，进而统计每一区间内的Mapped Reads数目及所占的比例，图中反映的是所有mRNA各个区间内的Mapped Reads比例的汇总。
+》
+三级标题
+2.4.2 插入片段长度检验
+》
+正文
+插入片段长度检验插入片段长度的离散程度能直接反映出文库制备过程中磁珠纯化的效果。通过插入片段两端的Reads在参考基因组上的比对起止点之间的距离计算插入片段长度。
+大部分的真核生物基因为断裂基因，外显子被内含子隔断，而转录组测序得到的是无内含子的成熟mRNA。当mRNA中跨内含子的片段两端的Reads比对到基因组上时，比对起止点之间的距离要大于插入片段长度。因此，在插入片段长度模拟分布图中，主峰右侧形成1个或多个杂峰。
+样品的插入片段长度模拟分布图如下：
+》
+图片集合
+图12 插入片段长度模拟分布图
+注：横坐标为双端Reads在参考基因组上的比对起止点之间的距离，范围为0到800bp；纵坐标为比对起止点之间不同距离的双端Reads或插入片段数量。
+》
+三级标题
+2.4.3 转录组测序数据饱和度检验
+》
+正文
+为了评估数据是否充足并满足后续分析，对测序得到的基因数进行饱和度检测。由于一个物种的基因数目是有限的，且基因转录具有时间和空间特异性，因此随着测序量的增加，检测到的基因数目会趋于饱和。对于表达量越高的基因，越容易被检测定量。因此，对于表达量越低的基因，需要更大的数据量才能被准确定量。
+使用样品的Mapped Data对检测到的不同表达情况的基因数目饱和情况进行模拟，绘制曲线图如下，可查看随着测序数据量的增加，检测到的不同表达量的基因数目是否趋于饱和。
+》
+图片集合
+图13 转录组数据饱和度模拟图
+注：本图为随机抽取10%、20%、30%……90%的总体测序数据单独进行基因定量分析的结果；横坐标代表抽取数据定位到基因组上的Reads数占总定位的reads数的百分比，纵坐标代表所有抽样结果中表达量差距小于15%的Gene在各个FPKM范围的百分比。
+》
+二级标题
+2.5 可变剪接事件预测
+》
+正文
+基因转录生成的前体mRNA（pre-mRNA），有多种剪接方式，选择不同的外显子，产生不同的成熟mRNA，从而翻译为不同的蛋白质，构成生物性状的多样性。这种转录后的mRNA加工过程称为可变剪接或选择性剪接（Alternative splicing）。
+采用Cufflinks[4]对tophat的比对结果进行拼接，并使用Cufflinks的Cuffcompare将Cufflinks拼接结果与初始注释结果比较分析，通过ASprofile[5]软件获取每个样品存在的可变剪接类型及相应表达量。基因可变剪接类型如下图所示：
+》
+图片
+图14 基因可变剪接类型
+注：(A) 外显子跳跃和多外显子跳跃；(B) 单内含子保留和多内含子保留；(C) 可变外显子；(D) 可变转录起始位点；(E) 可变转录终止位点；其中红色处为可变剪接类型。
+》
+正文
+ASprofile软件将可变剪接类型细分为12类，分别为：
+(1) TSS: Alternative 5' first exon (transcription start site) 第一个外显子可变剪切；
+(2) TTS: Alternative 3' last exon (transcription terminal site) 最后一个外显子可变剪切；
+(3) SKIP: Skipped exon(SKIP_ON,SKIP_OFF pair) 单外显子跳跃；
+(4) XSKIP: Approximate SKIP (XSKIP_ON,XSKIP_OFF pair) 单外显子跳跃（模糊边界）；
+(5) MSKIP: Multi-exon SKIP (MSKIP_ON,MSKIP_OFF pair) 多外显子跳跃；
+(6) XMSKIP: Approximate MSKIP (XMSKIP_ON,XMSKIP_OFF pair) 多外显子跳跃（模糊边界）；
+(7) IR: Intron retention (IR_ON, IR_OFF pair) 单内含子滞留；
+(8) XIR: Approximate IR (XIR_ON,XIR_OFF pair) 单内含子滞留（模糊边界）；
+(9) MIR: Multi-IR (MIR_ON, MIR_OFF pair) 多内含子滞留 ；
+(10) XMIR: Approximate MIR (XMIR_ON, XMIR_OFF pair) 多内含子滞留（模糊边界）；
+(11) AE: Alternative exon ends (5', 3', or both) 可变 5'或3'端剪切；
+(12) XAE: Approximate AE 可变 5'或3'端剪切（模糊边界）。
+》
+三级标题
+2.5.1 可变剪接事件数量统计
+》
+正文
+样品中预测的可变剪接事件数量统计见下图：
+》
+图片集合
+图15 可变剪接事件数量统计图
+注：横轴为该种事件下可变剪切的数量，纵轴为可变剪切事件的分类缩写。
+》
+三级标题
+2.5.2 可变剪切事件结构和表达量统计
+》
+文件集合
+可变剪切事件结构统计表
+注：event_id: AS事件编号；event_type: AS事件类型；gene_id: 基因ID；chrom: 染色体编号；event_start: AS事件起始位置；event_end: AS事件结束位置；event_pattern: AS事件特征 ；strand: 基因正负链信息。
+》
+二级标题
+2.6 基因结构优化分析
+》
+正文
+由于使用的软件或数据本身的局限性，导致所选参考基因组的注释往往不够精确，这样就有必要对原有注释的基因结构进行优化。如果在原有基因边界之外的区域有连续的Mapped Reads支持，将基因的非翻译区（Untranslated Region，UTR）向上下游延伸，修正基因的边界。此项目对$optimized_gene_num个基因结构进行了优化，基因结构优化结果见下面文件：
+》
+文件
+基因结构优化结果
+注：GeneID：基因ID；Locus：基因座，格式为“染色体编号:起点坐标-终点坐标”；Strand：正负链；Site：优化的位置，3'或5'UTR；OriginalRegion：原来注释的第一个或最后一个外显子的起止坐标；OptimizedRegion：延伸之后的第一个或最后一个外显子的起止坐标。
+》
+二级标题
+2.7 新基因分析
+》
+三级标题
+2.7.1 新基因发掘
+》
+正文
+基于所选参考基因组序列，使用Cufflinks软件对Mapped Reads进行拼接，并与原有的基因组注释信息进行比较，寻找原来未被注释的转录区，发掘该物种的新转录本和新基因，从而补充和完善原有的基因组注释信息。过滤掉编码的肽链过短（少于50个氨基酸残基）或只包含单个外显子的序列，共发掘$new_gene_num个新基因。新基因的GFF格式文件见下面文件：
+》
+文件
+新基因的GFF文件
+注：文件总共有9列。第1列：染色体号；第2列：注释信息的来源，Cufflinks软件；第3列：注释特征（Feature）类型；第4、5列：特征序列的起止位置；第6列：得分，数字，注释信息可能性的说明，“.”表示缺失值；第7列：特征序列所在的正负链；第8列：仅对注释类型为CDS有效，表示起始编码的位置，有效值为0、1、2，“.”表示缺失值；第9列：以多个键值对组成的注释信息描述。
+》
+正文
+提供基因组注释补充信息的同时，也提供以FASTA格式存储的新基因序列。新基因序列的FASTA文件见下面文件：
+》
+文件
+新基因序列FASTA文件
+注：FASTA格式每一个序列单元以“>”开头，直到出现下一个“>”之前为止。“>”开头的行为序列ID行，后面紧接着基因ID；下面一行或多行为该基因的碱基序列。
+》
+三级标题
+2.7.2 新基因功能注释
+》
+正文
+使用BLAST[6]软件将发掘的新基因与NR[7]，Swiss-Prot[8]，GO[9]，COG[10]，KOG[11]，Pfam[12]，KEGG[13]数据库进行序列比对，使用KOBAS2.0 [14]得到新基因的KEGG Orthology结果，预测完新基因的氨基酸序列之后使用HMMER[15]软件与Pfam数据库比对，获得新基因的注释信息。
+最终得到各数据库注释的新基因数量统计见下表：
+》
+表格
+表4 新基因功能注释结果统计
+注：Annotated databases：用于功能注释的数据库；New Gene Number：获得相应数据库注释信息的新基因数目。
+》
+二级标题
+2.8 基因表达量分析
+》
+三级标题
+2.8.1 基因表达定量
+》
+正文
+转录组测序可以模拟成一个随机抽样的过程，即从一个样品转录组的任意一段核酸序列上独立地随机抽取序列片段。抽取自某一基因（或转录本）的片段数目服从负二项分布[16]（Beta Negative Binomial Distribution）。基于该数学模型，使用Cufflinks软件的Cuffquant和Cuffnorm组件，通过Mapped Reads在基因上的位置信息，对转录本和基因的表达水平进行定量。
+抽取自一个转录本的片段数目与测序数据（或Mapped Data）量、转录本长度、转录本表达水平都有关，为了让片段数目能真实地反映转录本表达水平，需要对样品中的Mapped Reads的数目和转录本长度进行归一化。Cuffquant和Cuffnorm采用FPKM[5]（Fragments Per Kilobase of transcript per Million fragments mapped）作为衡量转录本或基因表达水平的指标，FPKM计算公式如下：
+》
+图片
+公式2 FPKM计算公式
+》
+正文
+公式中，cDNA Fragments表示比对到某一转录本上的片段数目，即双端Reads数目；Mapped Fragments (Millions)表示比对到转录本上的片段总数，以10^6为单位；Transcript Length(kb)：转录本长度，以10^3个碱基为单位。
+》
+文件
+基因表达量结果文件
+注：第一列表示基因 ID,其余各列表示基因在不同样品中的表达量(FPKM)
+》
+二级标题
+2.9 基因融合分析
+》
+正文
+融合基因是指两个基因的全部或一部分序列相互融合为一个新的基因的过程，是染色体易位、中间缺失或染色体倒置所致的结果，通常具有致瘤性，在各种不同的肿瘤中普遍存在。使用TopHat-Fusion[17]发现融合基因的转录产物。在所有样品共发现$fusion个候选的融合基因。
+候选融合基因的结果见下面文件：
+》
+文件
+TopHat-Fusion发现候选融合基因信息
+》
+参考文献
+[1] Ewing B, Hillier L, Wendl MC, Green P. Base-calling of automated sequencer traces using phred. I. Accuracy assessment. Genome Research. 1998,8 (3): 175-185.
+[2] Kim D, Pertea G, Trapnell C, Pimentel H, Kelley R, Salzberg SL. TopHat2: accurate alignment of transcriptomes in the presence of insertions, deletions and gene fusions. Genome Biology. 2013, 14:R36.
+[3] Langmead B, Trapnell C. Ultrafast and memory-efficient alignment of short DNA sequences to the human genome. Genome Biology. 2009, 10(3): R25.
+[4] Trapnell C, Williams BA, Pertea G, Mortazavi A, et al. Transcript assembly and quantification by RNA Seq reveals unannotated transcripts and isoform switching during cell differentiation. Nature Biotechnology. 2010, 28(5):511-515.
+[5] Florea L, Song L, Salzberg S L. Thousands of exon skipping events differentiate among splicing patterns in sixteen human tissues. F1000Research, 2013, 2:188.
+[6] Altschul S F, Madden TL, Zhang J, et al. Gapped BLAST and PSI BLAST: A New Generation of Protein Database Search Programs. Nucleic Acids Research. 1997, 25(17): 3389-3402.
+[7] Deng YY, Li JQ, Wu SF, Zhu YP, et al. Integrated nr Database in Protein Annotation System and Its Localization. Computer Engineering. 2006, 32(5):71-74.
+[8] Apweiler R, Bairoch A, Wu CH, et al. UniProt: the universal protein knowledgebase. Nucleic acids research. 2004, 32: D115-D119.
+[9] Ashburner M, Ball C A, Blake J A, et al. Gene ontology: tool for the unification of biology. Nature genetics. 2000, 25(1): 25-29.
+[10] Tatusov RL, Galperin MY, Natale D A. The COG database: a tool for genome scale analysis of protein functions and evolution. Nucleic Acids Research. 2000, 28(1):33-36.
+[11] Koonin EV, Fedorova ND, Jackson JD, et al. A comprehensive evolutionary classification of proteins encoded in complete eukaryotic genomes. Genome biology. 2004, 5(2): R7.
+[12] Finn RD, Bateman A, Clements J, et al. Pfam: the protein families database. Nucleic acids research. 2013: gkt1223.
+[13] Kanehisa M, Goto S, Kawashima S, Okuno Y, et al. The KEGG resource for deciphering the genome. Nucleic Acids Research. 2004, 32:D277-D280.
+[14] Xie C, Mao X, Huang J, et al. KOBAS 2.0: a web server for annotation and identification of enriched pathways and diseases. Nucleic acids research, 2011, 39(suppl 2): W316-W322.
+[15] Eddy S R. Profile hidden Markov models. Bioinformatics, 1998, 14(9): 755-763.
+[16] Jiang H, Wong WH. Statistical inferences for isoform expression in RNA-Seq. Bioinformatics. 2009, 25(8): 1026-1032.
+[17] Kim D, Salzberg S L. TopHat-Fusion: an algorithm for discovery of novel fusion transcripts. Genome Biol. 2011, 12(8): R72.

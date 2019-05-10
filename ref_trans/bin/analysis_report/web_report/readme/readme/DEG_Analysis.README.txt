@@ -1,0 +1,232 @@
+DEG_Analysis：差异分析结果
+
+差异分析结果展示：
+
+主目录下文件及目录：
+1.All_geneExpression.list：所有基因在各样品中的基因count数表
+2.All_DEG_veen.*：维恩图及相关文件
+3.DEG.stat：各组差异分析的差异基因数目统计
+4.DEG.anno.stat：各组差异分析的差异基因注释结果统计
+5.各组差异分析目录：如T1_vs_T2，前一个样品为对照组，后一个样品为试样组
+
+各组差异分析目录结果展示：
+
+6.*.DEG.final.xls：该组差异分析的差异基因总表
+7.*.cor.png：所有差异基因的散点图
+8.*.FC_FDR.png：所有差异基因的火山图
+9.*.FC_count.png：所有差异基因的MA图
+10.*.annotation.xls：差异基因的注释信息汇总表
+11.*.nr.anno.txt：差异基因的NR注释详细结果
+12.*.Swissprot.anno.txt：差异基因的Swissprot注释详细结果
+13.*.DEG.final.cluster：差异基因的聚类结果
+14.DEG_Cluster：层次聚类目录
+15.Cog_Anno：Cog注释统计结果目录
+16.go_enrichment：GO富集分析目录
+17.Graph：图片目录
+18.pathway：KEGG注释分析目录
+
+
+=============================================================================================================
+
+1.All_geneExpression.list：所有基因在各样品中的基因count数表
+
+	注：该表中的Count数来源于geneExpression目录下样品的all_geneExpression.xls表中的normalized_count，由于后续
+	差异分析软件的需要，对normalized_count取整（舍去小数）重新计算FPKM值进行差异分析，因此该目录下的基因表达量
+	与geneExpression目录下样品的基因表达量略微有差异。
+	
+	
+=============================================================================================================
+
+2.All_DEG_veen.*：维恩图及相关文件
+
+	在差异分析组合在2-5组之间时，会画差异分析组合结果间的维恩图，图片文件为All_DEG_veen.png。
+
+=============================================================================================================
+
+3.DEG.stat：各组差异分析的差异基因数目统计
+
+	统计了各组差异分析的差异基因总数、表达量上调基因数目和表达量下调基因数目。
+
+=============================================================================================================
+	
+4.DEG.anno.stat：各组差异分析的差异基因注释结果统计
+
+	统计了各组差异分析的差异基因在5个基因注释库中注视到的基因的数目，包括NR，Swissprot，GO，Cog和KEGG注释。
+	
+
+
+6.*.DEG.final.xls：该组差异分析的差异基因总表 结果说明
+
+	#ID：基因ID；
+	FDR：错误发现率，采用Benjamini-Hochberg校正方法对差异显著性p值校正得到，该值越小越好；
+	log2FC：差异倍数FC（Fold Change）的对数值；
+	regulated：表达量上调或下调。
+	
+	
+=============================================================================================================
+
+
+7.*.cor.png：所有差异基因的散点图 / 8.*.FC_FDR.png：所有差异基因的火山图 / 9.*.FC_count.png：所有差异基因的MA图
+
+	差异基因作图，详情见结题报告。
+	
+	
+=============================================================================================================
+
+10.*.annotation.xls：差异基因的注释信息汇总表 结果说明
+
+	#ID：基因ID；
+	FDR：错误发现率，采用Benjamini-Hochberg校正方法对差异显著性p值校正得到，该值越小越好；
+	log2FC：差异倍数FC（Fold Change）的对数值；
+	regulated：表达量上调或下调；
+	COG_class：Cog注释的分类，一个大写字母代表一个分类；
+	COG_class_annotation：Cog注释分类的说明；
+	GO_annotation：GO的注释信息；
+	KEGG_annotation：KEGG的注释信息，注意该处的注释信息为K开头的蛋白信息，而不是通路的KO号，同时该注释信息不一
+	定能够与通路关联；
+	Swissprot_annotation：Swissprot注释信息；
+	nr_annotation：NR注释信息。
+
+	
+=============================================================================================================
+
+
+11.*.nr.anno.txt：差异基因的NR注释详细结果 结果说明
+
+	#NrGeneID：基因ID；
+	Database_ID：NR注释库中的蛋白ID；
+	E_value：显著性E值；
+	Identity：相似度，比对上的区域中氨基酸相同的比例；
+	Score：比对分值；
+	Annotation：NR库中蛋白的注释信息。
+	
+	
+=============================================================================================================
+
+12.*.Swissprot.anno.txt：差异基因的Swissprot注释详细结果 结果说明
+
+	参考NR注释详细结果的结果说明。
+	
+	
+=============================================================================================================
+
+3.*.DEG.final.cluster：差异基因的聚类结果
+
+	根据All_geneExpression.list表中的取整的Count数计算出的基因的表达量值，用于画层次聚类图。
+	
+	
+=============================================================================================================
+
+14.DEG_Cluster：层次聚类目录
+
+	*.DEG.cluster.png：层次聚类图，png图片格式；
+	*.DEG.cluster.svg：层次聚类图，svg矢量图格式；
+	*.DEG.cluster.cdt：层次聚类结果，可用第三方软件TreeView打开进行细节查看操作；
+	其他文件：绘制层次聚类图生成的中间文件。
+	
+	
+=============================================================================================================
+
+15.Cog_Anno：Cog注释统计结果目录
+
+	*.Cog.classfy.png：Cog注释结果统计直方图；
+	*.Cog_class.txt.stat：Cog注释结果统计，用于画直方图；
+	*.Cog_class.txt：基因的Cog注释的详细结果，结果说明：
+		#Gene name：基因ID；
+		Portein name in COG：Cog注释库中蛋白ID；
+		E_value：显著性E值；
+		Identity：相似度，比对上的区域中氨基酸相同的比例；
+		Score：比对分值；
+		Organism：组织；
+		COG id：Cog编号；
+		COG class defination：Cog分类定义；
+		Function code：功能代号，一个大写字母代表一个功能；
+		Functional categories：功能分类；
+		Function class defination：功能分类定义。
+		
+		
+=============================================================================================================
+
+
+16.go_enrichment：GO富集分析目录
+
+	*.GO.png：GO统计直方图，png图片格式；
+	*.GO.svg：GO统计直方图，svg矢量图格式；
+	
+	*.GO.anno.txt：GO注释的完整信息
+		第一列：基因ID；
+		第二列：基因注释到的GO功能的数目；
+		第三列以后：基因注释到的GO功能详细信息。		
+	*.GO.list.txt：GO注释列表
+	*.up.list.txt：上调基因GO注释
+	*.down.list.txt：下调基因GO注释
+	
+	*.GO.Biological.xls/*.GO.Cellular.xls/*.GO.Molecular.xls：三个一级功能的富集信息列表
+		#Go_Term：GO功能
+		GO_ID：差异基因中注释到该功能的基因数目；
+		Unigene：差异基因总数；
+		gene：所有基因中注释到该功能的基因数目；
+		Unigene_all：所有基因总数；
+		gene_all：差异基因中注释到该功能的基因的ID。
+		
+	*.GO.Biological.stat/*.GO.Cellular.stat/*.GO.Molecular.stat：三个一级功能的富集统计信息
+		#Gene_Ontology_term：GO功能；
+		Cluter_frequency：差异基因中注释到该功能的基因比例；
+		Genome_frequency：所有基因中注释到该功能的基因比例；
+		P-value：P值；
+		Corrected_P-value：校正后的P值。
+		
+	*_C1.html / *_F1.html / *_P1.html ：三个一级功能的富集结果网页展示页面
+	
+	
+=============================================================================================================
+
+
+17.Graph：图片目录
+
+	*.topGO_BP.xls / *.topGO_CC.xls / *.topGO_MF.xls ：三个一级功能的TopGO分析结果
+		GO.ID：GO ID；
+		Term：GO功能；
+		Annotated：所有基因中注释到该功能的基因数目；
+		Significant：差异基因中注释到该功能的基因数目；
+		Expected：根据所有基因中注释到该功能的基因的比例，理论上差异基因中注释到该功能的基因数目；
+		KS：显著性KS值。
+		
+	*.topGO_BP.png / *.topGO_CC.png / *.topGO_MF.png：TopGO分析中显著性最高的10个功能做的GO层次图，png格式。
+	*.topGO_BP.pdf / *.topGO_CC.pdf / *.topGO_MF.pdf：TopGO分析中显著性最高的10个功能做的GO层次图，pdf格式。
+	
+	*.KEGG.list：KEGG富集结果列表，用于画富集图
+		#pathway：通路名称；
+		ko：通路编号；
+		enrichment_factor：富集因子，所有基因的注释基因比例/差异基因的注释基因比例，因子越小越富集；
+		correct_p：校正后的P值。
+		
+	*.KEGG.Phase.png：KEGG富集图。
+	
+	
+=============================================================================================================
+
+
+18.pathway：KEGG注释分析目录
+
+	*.KEGG.xls：KEGG注释结果。
+		#Pathway：通路名称；
+		ko_ID：通路ID；
+		Unigene：差异基因中注释到该通路的基因数目；
+		gene：差异基因总数；
+		Unigene_all：所有基因中注释到该通路的基因数目；
+		gene_all：所有基因总数；
+		第七列：差异基因中注释到该通路的基因ID；
+		第八列：差异基因中注释到该通路的基因对应的KEGG注释库中的ID。
+		
+	*.KEGG.stat：KEGG富集统计原始文件，用于生成画富集图的富集结果列表（见17）。
+		#Kegg_pathway：通路名称；
+		ko_id：通路ID；
+		Cluter_frequency：差异基因中注释到该通路的基因比例；
+		Genome_frequency：所有基因中注释到该通路的基因比例；
+		P-value：P值；
+		Corrected_P-value：校正后的P值。
+		
+	*.Kegg.ko：KEGG注释结果文件。
+		#Gene_id：基因ID；
+		KO|e_value|Database_Genes|Anno：比对到的KEGG注释库中的蛋白信息。

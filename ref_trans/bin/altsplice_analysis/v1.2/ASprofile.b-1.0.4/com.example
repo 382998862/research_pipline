@@ -1,0 +1,16 @@
+### extract AS events
+./extract-as FOXP1.variants.gtf hg19.fa.hdrs -r FOXP1.tmap Homo_sapiens.GRCh37.61.chr3.gtf > foxp1.tmap.as
+
+### summarize events, per gene; also, create a catalog of non-redundant events (foxp1.as.nr)
+perl summarize_as.pl FOXP1.variants.gtf foxp1.tmap.as -p foxp1
+
+### calculate fpkm of events from transcripts in each tissue
+for i in adrenal adipose brain breast colon heart kidney liver lung lymph ovary prostate skel_muscle testes thyroid white_blood
+do
+  grep $i FOXP1.variants.gtf > $i.FOXP1.variants.gtf
+ ./extract-as-fpkm $i.FOXP1.variants.gtf hg19.fa.hdrs foxp1.as.nr -W 9 > $i.foxp1.W9.fpkm
+done
+
+### compare splicing ratios among tissues (conditions)
+perl collect_fpkm.pl adrenal,adipose,brain,breast,colon,heart,kidney,liver,lung,lymph,ovary,prostate,skel_muscle,testes,thyroid,white_blood -s foxp1.W9.fpkm > foxp1.W9.diff-exp
+

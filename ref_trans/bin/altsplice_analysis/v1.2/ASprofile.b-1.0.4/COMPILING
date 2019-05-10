@@ -1,0 +1,23 @@
+This guide tells how to compile and install the software.
+
+1) To compile, simply type:
+
+% make all
+
+The software is compiled in place. 
+
+If you see any errors, please send us an email including the error message
+and the program version (this is the listed in the directory name). The
+software was developed for RedHat Linux and may need adjustments to work
+on other Unix platforms.
+
+2) Installation - none needed.
+
+Software was compiled and must be run from its own directory. Alternatively,
+modify the PATH variable in your .cshrc (.bash_profile, etc) file to include 
+the ASprofile directory.
+
+3) Run the program from its own directory, then manually move the files
+elsewhere on the system, where desired.
+
+Contact us: florea@jhu.edu

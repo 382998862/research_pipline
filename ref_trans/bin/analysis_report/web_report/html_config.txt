@@ -1,0 +1,45 @@
+####
+Project_name    Cucuber转录组
+Project_info 	3个Cucuber样品转录组
+Contract_NO     BMK130716-553-02
+Customer_info   百迈客生物科技有限公司
+
+
+##Project    should accord with the KEY of Trans2Unigene cfg file
+Project      Cucumber 
+
+
+##Samples
+Sample1      T1
+Sample2      T2
+Sample1      T3
+
+######
+#Extract Ref Result dir for Html process
+######
+
+######## rawdata Assess dir
+Rawdata         OUTDIR/Data_Assess
+
+######## Trans2Unigene Out dir
+#Tophat2MAP         
+
+######## geneExpression 
+geneExpression 	OUTDIR/Basic_Analysis/geneExpression
+
+
+
+######## DEG_Analysis dir
+DEG               OUTDIR/DEG_Analysis/
+
+
+######## Alitsplice_Analysis
+ALT            OUTDIR/Alitsplice_Analysis/
+
+####### NewGene annotation directory
+NewAnno        OUTDIR/Anno_Integrate/New_Anno/Result/Function_Annotation.stat.xls
+
+####### SNP directory
+SNP            OUTDIR/SNP_Analysis/
+
+

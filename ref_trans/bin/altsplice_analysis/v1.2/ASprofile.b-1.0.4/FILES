@@ -1,0 +1,21 @@
+total 24480
+-rw-rw-r-- 1 florea salzberg_ifx        0 Aug 22 09:15 FILES
+-rw-r--r-- 1 florea salzberg_ifx      861 Aug 22 09:15 com.example
+-rwxrwxr-x 1 florea salzberg_ifx    52616 Aug 22 09:12 extract-as
+-rw-r--r-- 1 florea salzberg_ifx     6875 Aug 22 09:12 README
+-rw-rw-r-- 1 florea salzberg_ifx    17021 Aug 22 09:10 kkk
+-rw-r--r-- 1 florea salzberg_ifx      220 Mar 15 13:52 CHANGELOG
+-rw-r--r-- 1 florea salzberg_ifx    66296 Mar 15 13:37 extract-as.c
+-rw-r--r-- 1 florea salzberg_ifx    33556 Nov 19  2012 extract-as-fpkm.c
+-rw-r--r-- 1 florea salzberg_ifx      327 Nov 19  2012 makefile
+-rw-r--r-- 1 florea salzberg_ifx      736 Nov 19  2012 COMPILING
+-rw-r--r-- 1 florea salzberg_ifx      847 Nov 19  2012 COPYRIGHT
+-rw-r--r-- 1 florea salzberg_ifx    64251 Nov 19  2012 FOXP1.tmap
+-rw-r--r-- 1 florea salzberg_ifx    70453 Nov 19  2012 FOXP1.variants.gtf
+-rw-r--r-- 1 florea salzberg_ifx 24681889 Nov 19  2012 Homo_sapiens.GRCh37.61.chr3.gtf
+-rw-r--r-- 1 florea salzberg_ifx     9127 Nov 19  2012 collect_fpkm.pl
+-rw-r--r-- 1 florea salzberg_ifx     1586 Nov 19  2012 hg19.fa.hdrs
+-rw-r--r-- 1 florea salzberg_ifx     2247 Nov 19  2012 lib.c
+-r--r--r-- 1 florea salzberg_ifx      578 Nov 19  2012 lib.h
+-r--r--r-- 1 florea salzberg_ifx      476 Nov 19  2012 libc.h
+-rw-r--r-- 1 florea salzberg_ifx     7533 Nov 19  2012 summarize_as.pl

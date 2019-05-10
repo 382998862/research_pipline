@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh_CN">
+    <meta charset="UTF-8">
+    <title>安徽省农科院芝麻不育重测序SuperBSA分析</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="src/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/css/index.css"/>
+    <script src="src/js/jquery-1.11.3.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="src/js/html5shiv.min.js"></script>
+    <script src="src/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="src/js/fancyBox/jquery.fancybox.css"/>
+    <!--导航-->
+    <link rel="stylesheet" href="src/css/nav.css"/>
+    <script src="src/js/nav.js"></script>
+    <!--缩略图-->
+    <link rel="stylesheet" href="src/css/raxus.css">
+    <script type="text/javascript" src="src/js/raxus-slider.min.js"></script>
+    <!--fancybox-->
+    <script src="src/js/fancyBox/jquery.fancybox.pack.js"></script>
+    <!--滚轮滑动切换图片-->
+    <script src="src/js/fancyBox/jquery.mousewheel-3.0.6.pack.js"></script>
+    <!--返回顶部-->
+    <script src="src/js/scrolltop.js"></script>
+    <script src="src/js/bootstrap.min.js"></script>
+   <!-- fancybox图片切换-->
+    <script>
+        $(document).ready(function(){
+
+            $(".img-toggle").fancybox({
+                openEffect	: 'elastic',
+                closeEffect	: 'elastic',
+
+                helpers : {
+                    title : {
+                        type : 'inside'
+                    }
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <!--结题报告开始-->
+    <div class="container shadow">
+
+        <!--结题报告标题开始-->
+        <header>
+            <h2 class="text-center" id="title">安徽省农科院芝麻不育重测序SuperBSA分析</h2>
+            <img src="src/images/logo.jpg" class="pull-right">
+        </header><!--结题报告标题结束-->
+
+        <!--结题报告内容开始-->
+        <div class="row">
+
+            <!--正文开始-->
+            <div class="col-md-9" role="main">
+
+                <!--第一章 1 项目概况-->
+                <section>
+                        <h3 id="js-overview">1 项目概况</h3>
+
+                    <article>
+                        <h4 class="title-h4" id="js-contract-index">1.1 合同关键指标</h4>
+                        <ol>
+                            <li>完成4个样品的重测序，平均每个样品产生8.94Gbp Clean Data，保证Q30达到85%。</li>
+                            <li>数据评估：测序数据量，测序数据质量和GC含量的统计。</li>
+                            <li>与基因组比对：比对率，基因组覆盖度，基因组覆盖深度统计。</li>
+                            <li>变异检测和注释：SNP、InDel、SV的检测和注释。</li>
+                            <li>DNA水平变异基因分析：检测编码区发生SNP非同义突变、InDel突变、SV突变的基因。</li>
+                            <li>基因注释：对DNA水平变异基因进行KEGG、GO、COG、NR、SwissProt数据库注释。</li>
+                        </ol>
+                    </article>
+
+                    <article>
+                        <h4 class="title-h4" id="js-project-base-info">1.2 项目基本信息</h4>
+                        <ol>
+                            <li>样品信息:</li>
+                            <p>测序物种名称：Sesamum_v1.0</p>
+                        </ol>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr class="bg-info">
+                                    <th>样品编号</th>
+                                    <th>BMK编号</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>亲本1</td>
+                                    <td>R01</td>
+                                </tr>
+                                <tr>
+                                    <td>亲本2</td>
+                                    <td>R02</td>
+                                </tr>
+                                <tr>
+                                    <td>F2可育</td>
+                                    <td>R03</td>
+                                </tr>
+                                <tr>
+                                    <td>F2不可育</td>
+                                    <td>R04</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p class="text-center small">注：BMK编号：百迈客对样品的统一编号，实验建库和后续信息分析均使用该编号</p>
+
+                        <ol start="2">
+                            <li>参考基因组信息:</li>
+                            <p>打开本地文件Demo：<a onclick="openFileIIs(IMG_1456.jpg)">IMG_1456</a>下载网址：<a href="#">http://demo。</a></p>
+                        </ol>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                <tr class="bg-success">
+                                    <th>参考物种名称</th>
+                                    <th>基因组大小</th>
+                                    <th>GC含量(%)</th>
+                                    <th>是否装到染色体</th>
+                                    <th>是否注释</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>芝麻</td>
+                                    <td>374.5M</td>
+                                    <td>43.02</td>
+                                    <td>是</td>
+                                    <td>是</td>
+                                </tr>
+                                <tr>
+                                    <td>芝麻</td>
+                                    <td>374.5M</td>
+                                    <td>43.02</td>
+                                    <td>是</td>
+                                    <td>是</td>
+                                </tr>
+                                <tr>
+                                    <td>芝麻</td>
+                                    <td>374.5M</td>
+                                    <td>43.02</td>
+                                    <td>是</td>
+                                    <td>是</td>
+                                </tr>
+                                <tr>
+                                    <td>芝麻</td>
+                                    <td>374.5M</td>
+                                    <td>43.02</td>
+                                    <td>是</td>
+                                    <td>是</td>
+                                </tr>
+                                <tr>
+                                    <td>芝麻</td>
+                                    <td>374.5M</td>
+                                    <td>43.02</td>
+                                    <td>是</td>
+                                    <td>是</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <article>
+                        <h4 class="title-h4" id="js-project-progress">1.3 项目执行情况</h4>
+                        <ol>
+                            <li>样品检测合格时间为2015年01月1日。</li>
+                            <li>样品信息到位时间为2015年01月1日。</li>
+                            <li>项目启动时间为2015年11月1日。</li>
+                            <li>项目分析完成时间为2015年01月1日。</li>
+                        </ol>
+                    </article>
+
+                    <article>
+                        <h4 class="title-h4" id="js-analysis-results">1.4 分析结果概述</h4>
+                        <p class="paragraph">测序共获得44.81Gbp的Raw Data，过滤后得到的Clean Data为35.74Gbp，Q30达到65.48%，平均每个个体测序深度为29X。样品与参考基因组平均比对率为99.23%，平均覆盖深度为19X，基因组覆盖度为87.85%（至少一个碱基覆盖）。</p>
+                        <p class="paragraph">4个样品与参考基因组之间共获得约397,713个SNP，92,677个InDel，平均每个个体获得35,334个SV变异。样品与参考基因组之间检测发生SNP非同义突变、InDel突变、SV的基因，并对DNA水平变异的基因进行了KEGG、GO、COG、NR、SwissProt数据库注释。</p>
+                    </article>
+
+                </section>
+
+                <!--第二章 2 项目流程-->
+                <section>
+                    <h3 id="js-project-process">2 项目流程</h3>
+                    <article>
+                        <h4 class="title-h4" id="js-experiment-process">2.1 实验流程</h4>
+                        <p class="paragraph">实验流程按照Illumina公司提供的标准protocol执行，包括样品质量检测、文库构建、文库质量检测和文库测序等流程，具体流程图如下。<br /></p>
+                        <p class="paragraph">4个样品与参考基因组之间共获得约397,713个SNP，92,677个InDel，平均每个个体获得35,334个SV变异。样品与参考基因组之间共检测得到发生SNP非同义突变、InDel突变、SV的基因分别为13,312、4,841和2,797个，最后对DNA水平变异的基因进行了KEGG、GO、COG、NR、SwissProt数据库注释。</p>
+                        <p class="paragraph">文库构建完成后，先使用Qubit2.0进行初步定量，稀释文库至1ng/ul，随后使用Agilent 2100对文库的insert size进行检测，insert size符合预期后，使用Q-PCR方法对文库的有效浓度进行准确定量（文库有效浓度 ＞2nM），以保证文库质量。</p>
+                    </article>
+
+                    <article>
+                        <h4 class="title-h4" id="js-Sequencing">3 上机测序</h4>
+                        <p class="paragraph">库检合格后，把不同文库按照有效浓度及目标下机数据量的需求pooling后进行Illumina HiSeq 2000测序。</p>
+                        <p class="text-center">
+                            <a class="img-toggle" href="src/images/experiment_proecss.png" title="example1">
+                                <img class="img-width-min" src="src/images/experiment_proecss.png" alt="example1"/>
+                            </a>
+                        </p>
+                        <p class="img-mark text-center small">图1 实验流程图</p>
+                        <p class="paragraph">
+                            样品基因组DNA检测合格后，用机械打断的方法（超声波）将DNA片段化，然后对片段化的DNA进行片段纯化、末端修复、3′端加A、连接测序接头，再用琼脂糖凝胶电泳进行片段大小选择，进行PCR扩增形成测序文库，建好的文库先进行文库质检，质检合格的文库用Illumina HiSeqTM 2500进行测序。
+                        </p>
+                    </article>
+
+                    <article>
+                        <h4 class="title-h4" id="js-information-analysis-process">2.2 信息分析流程</h4>
+                        <p class="paragraph">对测序得到的原始reads(双端序列)进行质量评估并过滤得到Clean Reads，用于后续生物信息学的分析。将Clean Reads与参考基因组序列进行比对，基于比对结果进行SNP、Small InDel、SV的检测和注释，并实现DNA水平差异基因挖掘和差异基因功能注释等。
+
+                        <p class="paragraph">重测序生物信息分析流程见图2：</p>
+                        <p class="text-center">
+                            <a class="img-toggle" href="src/images/Analysis_proecss.png" title="example2">
+                                <img class="img-width-normal" src="src/images/Analysis_proecss.png" alt="example2"/>
+                            </a>
+                        </p>
+                        <p class="img-mark text-center small">图2 重测序生物信息分析流程图</p>
+
+                    </article>
+
+                    <article>
+                        <h4 class="title-h4" id="js-information-analysis-process1">2.3 信息分析流程</h4>
+                        <p class="paragraph">对测序得到的原始reads(双端序列)进行质量评估并过滤得到Clean Reads，用于后续生物信息学的分析。将Clean Reads与参考基因组序列进行比对，基于比对结果进行SNP、Small InDel、SV的检测和注释，并实现DNA水平差异基因挖掘和差异基因功能注释等。
+
+                        <p class="paragraph">重测序生物信息分析流程见图2：</p>
+                        <p class="text-center">
+                            <a class="img-toggle" href="src/images/Analysis_proecss.png" title="example3">
+                                <img class="img-width-max" src="src/images/Analysis_proecss.png" alt="example3"/>
+                            </a>
+                        </p>
+                        <p class="img-mark text-center small">图3 重测序生物信息分析流程图</p>
+                    </article>
+
+                </section>
+
+                <!--第三章 展示结果及说明-->
+                <section>
+                    <h3 id="js-analysis-methods-results">3 生物信息学分析方法和结果</h3>
+                    <!--3.1-->
+                    <article>
+                        <h4 class="title-h4" id="js-sequencing-quality-control">3.1 测序数据质控</h4>
+                        <section>
+                            <h5 class="title-h5" id="js-sequencing-data">3.1.1 测序数据介绍</h5>
+                            <p class="paragraph">高通量测序（如Illunima HiSeq 2500等测序平台）得到的原始图像数据文件，经碱基识别（Base Calling）分析转化为原始测序序列（Sequenced Reads），我们称之为Raw Data或Raw Reads，结果以FASTQ（简称为fq）文件格式存储，其中包含测序序列（Reads）的序列信息以及其对应的测序质量信息。测序样品中真实数据随机截取结果如下：</p>
+                            <p class="paragraph">FASTQ格式文件中每个read由四行描述，如下：</p>
+                            <p class="paragraph-none-indent">
+                                @HWI-ST1276:71:C1162ACXX:1:1101:1208:2458 1:N:0:CGATGT<br />
+                                NAAGAACACGTTCGGTCACCTCAGCACACTTGTGAATGTCATGGGATCCAT<br />
+                                +<br />
+                                #55???BBBBB?BA@DEEFFCFFHHFFCFFHHHHHHHFAE0ECFFD/AEHH<br />
+                            </p>
+                            <p class="paragraph-none-indent">其中第一行以“@”开头，随后为Illumina 测序标识别符(Sequence Identifiers)和描述文字(选择性部分)；<br />
+                                第二行是碱基序列；<br />
+                                第三行以“+”开头，随后为Illumina 测序标识别符(选择性部分)；<br />
+                                第四行是对应碱基的测序质量，该行中每个字符对应的 ASCII 值减去 33，即为对应第二行碱基的测序质量值。<br />
+                            </p>
+                            <p class="paragraph-none-indent">Illumina测序标识符详细信息如下表：</p>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                <thead>
+                                <tr class="bg-primary">
+                                    <th>HWI-ST1276</th>
+                                    <th>Instrument – unique identifier of the sequencer</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>71</td>
+                                    <td>Run number – Run number on instrument</td>
+                                </tr>
+                                <tr>
+                                    <td>C1162ACXX</td>
+                                    <td>FlowCell ID – ID of flowcell</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>LaneNumber – positive integer</td>
+                                </tr>
+                                <tr>
+                                    <td>1101</td>
+                                    <td>TileNumber – positive integer</td>
+                                </tr>
+                                <tr>
+                                    <td>1208</td>
+                                    <td>X – x coordinate of the spot. Integer which can be negative</td>
+                                </tr>
+                                <tr>
+                                    <td>2458</td>
+                                    <td>Y – y coordinate of the spot. Integer which can be negative</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>ReadNumber - 1 for single reads; 1 or 2 for paired ends</td>
+                                </tr>
+                                <tr>
+                                    <td>N</td>
+                                    <td>Whether it is filtered - NB：Y if the read is filtered out, not in the delivered fastq file, N
+                                        otherwise
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>0</td>
+                                    <td>Control number - 0 when none of the control bits are on, otherwise it is an even number</td>
+                                </tr>
+                                <tr>
+                                    <td>CGATGT</td>
+                                    <td>Illumina index sequences</td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                            </div>
+                            <p class="paragraph">通过使用第四行中每个字符对应的ASCII值进行计算，即得到对应第二行碱基的测序质量值。如果测序错误率用e表示，Illunima HiSeq 2500的碱基质量值用Qphred表示，则有下列关系：，则有：Q<sub>phred</sub>=-10log<sub>10</sub>(e)</p>
+                            <p class="paragraph-none-indent">Illunima Casava 1.8版本测序错误率与测序质量值简明对应关系如下表所示：</p>
+                            <div class="table-responsive">
+                                <table class="table">
+                                <thead class="bg-primary">
+                                <tr>
+                                    <th>测序错误率</th>
+                                    <th>测序质量值</th>
+                                    <th>对应字符</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="bg-success">
+                                    <td>5%</td>
+                                    <td>13</td>
+                                    <td>.</td>
+                                </tr>
+                                <tr class="bg-danger">
+                                    <td>1%</td>
+                                    <td>20</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr class="bg-info">
+                                    <td>0.1%</td>
+                                    <td>30</td>
+                                    <td>?</td>
+                                </tr>
+                                <tr class="bg-warning">
+                                    <td>0.01%</td>
+                                    <td>40</td>
+                                    <td>I</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <p class="paragraph">碱基识别（Base Calling）分析软件：Illunima Casava 1.8版本</p>
+                            <p class="paragraph">测序参数：双端测序(Paired end)</p>
+                            <p class="paragraph">测序序列读长：101bp（或者单位为循环数(cycle))</p>
+                        </section>
+
+                        <!-- 测序数据质量评估 -->
+                        <section>
+                            <h5 class="title-h5" id="js-mass-distribution">3.1.2 碱基测序质量分布</h5>
+                            <p class="paragraph">如果测序错误率用e表示，Illunima HiSeq<sup>TM</sup>2000/Miseq<sup>TM</sup>的碱基质量值用Q<sub>phred</sub>表示，则有：Q<sub>phred</sub>=-10log<sub>10</sub>(e)。Illunima Casava 1.8版本碱基识别与Phred分值之间的简明对应关系见下表：</p>
+                            <div class="table-responsive">
+                                <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Phred分值</th>
+                                    <th>不正确的碱基识别</th>
+                                    <th>碱基正确识别率</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>10</td>
+                                    <td>1/10</td>
+                                    <td>90%</td>
+                                </tr>
+                                <tr>
+                                    <td>20</td>
+                                    <td>1/100</td>
+                                    <td>99%</td>
+                                </tr>
+                                <tr>
+                                    <td>30</td>
+                                    <td>1/1000</td>
+                                    <td>99.9%</td>
+                                </tr>
+                                <tr>
+                                    <td>40</td>
+                                    <td>1/10000</td>
+                                    <td>99.99%</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <p class="paragraph">在Hiseq2500测序系统测序时，首先会对文库进行芯片制备，目的是将文库DNA模板固定到芯片上，在固定DNA模板的过程中，每个DNA分子会形成一个簇，一个簇就是一个测序位点，在进行固定过程中极少量的簇与簇之间物理位置会发生重叠，在测序时，测序软件通过前4个碱基对这些重叠的点进行分析和识别，将这些重叠点位置分开，保证每个点测到的是一个DNA分子，因此测序序列5′端前几个碱基的错误率相对较高。另外测序错误率会随着测序序列（Sequenced Reads）的长度的增加而升高，这是由于测序过程中化学试剂的消耗而导致的。因此在进行碱基测序质量分布分析时，样品的碱基质量分布在前4个碱基和后十几个碱基的质量值会低于中间测序碱基，但其质量值都高于Q30%。</p>
+
+                            <div class="raxus-slider" data-autoplay="3000" data-arrows="show" data-keypress="true" data-thumbnail="bottom">
+                                <ul class="slider-relative">
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <p class="img-mark text-center small">图3 样品碱基质量分布</p>
+                            <p class="paragraph-mark center-block small img-width-max">注：横坐标为reads的碱基位置，纵坐标为单碱基的质量值。前101bp为双端测序序列的第一端测序reads的质量值分布，后101bp为另一端测序reads的质量值分布。<br />每个cycle代表测序的每个碱基，同一cycle的各个质量颜色越深表示在数据中这个质量值得比例越高。从该图上可以看出，碱基的质量值基本在30以上，说明测序质量较好。</p>
+
+                        </section>
+
+                        <!--测序错误率分布检查-->
+                        <section>
+                            <h5 class="title-h5" id="js-3-1-3">3.1.3 碱基类型分布</h5>
+                            <p class="paragraph">碱基类型分布检查用于检测有无AT、GC分离现象，而这种现象可能是测序或者建库所带来的，并且会影响后续分析。高通量所测序列为基因组随机打断后的DNA片段，由于位点在基因组上的分布是近似均匀的，同时，G/C、A/T含量也是近似均匀的。因此，根据大数定理，在每个测序循环上，GC、AT含量应当分别相等，且等于基因组的GC、AT含量。同样因为重叠簇的关系会导致样品前几个碱基AT、GC不等波动较大，高于其他测序区段，而其它区段的GC、AT的含量相等，且分布均匀无分离现象（图4）：</p>
+
+
+                            <div class="raxus-slider" data-autoplay="3000" data-arrows="show" data-keypress="true" data-thumbnail="bottom">
+                                <ul class="slider-relative">
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <p class="img-mark text-center small">图4 样品的各碱基比例分布</p>
+                            <p class="paragraph-mark center-block small img-width-max">注：横坐标为reads的碱基位置，纵坐标为碱基所占的比例；不同颜色代表不同的碱基类型，绿色代表碱基A，蓝色代表碱基T，红色代表碱基C，橙色代表碱基G，灰色代表测序中识别不出的碱基N。前100bp为双端测序序列的第一端测序Reads的碱基分布，后100bp为另一端测序reads的碱基分布。每个cycle代表测序的每个碱基，如第一cycle即表示该项目所有测序reads在第一个碱基的A、T、G、C、N的分布情况。</p>
+
+                        </section>
+
+                        <!--mark-->
+                        <section>
+                            <h5 class="title-h5" id="js-3-1-4">3.1.4 低质量数据过滤</h5>
+                            <p class="paragraph">测序得到的原始测序序列（Sequenced Reads）或者 raw reads，里面含有带接头的、低质量的reads。为了保证信息分析质量，必须对raw reads过滤，得到clean reads，后续分析都基于 clean reads。数据处理的步骤如下：</p>
+                            <ol>
+                                <li>去除带接头(adapter)的reads pair。</li>
+                                <li>若一条reads上N（未能确定出具体的碱基类型）的比例大于5%，则过滤掉该Pair end reads。</li>
+                                <li> 当单端测序read中含有的低质量（Q &lt= 5）碱基数超过该条read长度比例的 50% 时，需要去除此对paired reads。</li>
+                            </ol>
+                            <p class="paragraph">数据过滤统计结果如下表所示：</p>
+
+                            <p class="text-center">表2 数据过滤统计表</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="bg-primary">
+                                    <tr>
+                                        <th>R01</th>
+                                        <th>40,989,692</th>
+                                        <th>0.12</th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>40,817,161</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>R02</td>
+                                        <td>36,108,253</td>
+                                        <td>0.14</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>35,949,724
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>R03</td>
+                                        <td>74,596,653</td>
+                                        <td>0.12</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>74,276,482
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>R04</td>
+                                        <td>67,076,128</td>
+                                        <td>0.16</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>66,668,934
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="table-mark small">注：BMK ID：百迈客对项目样品的统一编号；Raw_Reads:初始测序reads数；Adapter_Related：含接头被过滤的reads数；Contain_N：由于N比例大于5%而被过滤的reads数；Low_Quality：质量值过低被过滤的reads数；Clean_Reads：过滤后剩余的reads数。</p>
+                        </section>
+
+                        <!--3.1.5 数据质量统计-->
+                        <section>
+                            <h5 class="title-h5" id="js-3-1-5">3.1.5 数据质量统计</h5>
+                            <p class="paragraph">各样品测序产出数据评估结果见表3。</p>
+                            <p class="text-center">表3　测序数据质量情况汇总</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>R01</th>
+                                            <th>40,989,692</th>
+                                            <th>40,817,161</th>
+                                            <th>8,244,579,795</th>
+                                            <th>92.54</th>
+                                            <th>87.34</th>
+                                            <th>38.44</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>R02</td>
+                                            <td>36,108,253</td>
+                                            <td>35,949,724</td>
+                                            <td>7,261,444,354</td>
+                                            <td>92.79</td>
+                                            <td>87.66</td>
+                                            <td>37.13</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R03</td>
+                                            <td>74,596,653</td>
+                                            <td>74,276,482</td>
+                                            <td>15,002,989,774</td>
+                                            <td>93.13</td>
+                                            <td>88.11</td>
+                                            <td>37.68</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R04</td>
+                                            <td>67,076,128</td>
+                                            <td>66,668,934</td>
+                                            <td>13,466,358,664</td>
+                                            <td>91.27</td>
+                                            <td>86.12</td>
+                                            <td>37.42</td>
+                                        </tr>
+                                    </tbody>
+
+
+                                </table>
+                            </div>
+                            <p class="paragraph">数据质量情况详细内容如下：</p>
+                            <ol>
+                                <li>BMK ID：百迈客对项目样品的统一编号</li>
+                                <li>Raw_Reads：初始测序reads数目，以四行为一个单位，统计Pair end序列的个数</li>
+                                <li>Clean_Reads：过滤后的reads数，计算方法同Raw Reads</li>
+                                <li>Clean_bases：过滤后的碱基数，Clean Reads数乘以序列长度</li>
+                                <li>Q20(%)质量值大于等于20的碱基占总碱基数的百分比</li>
+                                <li>Q30(%)质量值大于等于30的碱基占总碱基数的百分比</li>
+                                <li>GC(%)：样品GC含量，即G和C类型的碱基占总碱基的百分比</li>
+                            </ol>
+                        </section>
+                    </article>
+
+                    <!--3.2-->
+                    <article>
+                        <h4 class="title-h4" id="js-3-2">3.2 与参考基因组比对统计</h4>
+                        <p class="paragraph">重测序获得的测序reads需要重新定位到参考基因组上，才可以进行后续变异分析。bwa<sup>[1]</sup>软件主要用于二代高通量测序（如Illunima HiSeq 2500等测序平台）得到的短序列与参考基因组的比对。通过比对定位Clean Reads在参考基因组上的位置，统计各样品的测序深度、基因组覆盖度等信息，并进行变异的检测。</p>
+
+                        <!--3.2.1-->
+                        <section>
+                            <h5 class="title-h5" id="js-3-2-1">3.2.1 比对结果统计</h5>
+
+                            <p class="paragraph">与参考基因组比对，统计样品比对率等信息：</p>
+                            <p class="paragraph">比对率：即可以定位到参考基因组上的Clean Reads占总的Clean Reads数比例，如果参考基因组选择合适，且相关实验过程不存在污染，测序reads的比对率会高于70%。另外，比对率的高低受测序物种与参考基因组亲缘关系远近、参考基因组组装质量高低及reads测序质量有关，物种越近缘、参考基因组组装越完整、测序reads质量越高，则可以定位到参考基因组的reads也越多，比对率越高。</p>
+                            <p class="paragraph">比对统计方法如下：</p>
+                            <p class="paragraph">Clean Reads：统计Clean Reads数据文件，每四行为一个单位，双端分别统计，即read1和read2记为2条reads。</p>
+                            <p class="paragraph">Mapped(%)：定位到参考基因组的Clean Reads数占所有Clean Reads数的百分比，使用samtools flagstat命令实现。</p>
+                            <p class="paragraph">Properly mapped(%)：双端测序序列均定位到参考基因组上且距离符合测序片段的长度分布，使用samtools flagstat命令实现。</p>
+                            <p class="paragraph">样品的比对结果如下表所示。</p>
+
+                            <p class="text-center">表4 比对结果统计</p>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#Sample</th>
+                                            <th>Total_reads</th>
+                                            <th>PCR-dup_ratio(%)</th>
+                                            <th>Mapped(%)</th>
+                                            <th>Properly_mapped(%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>R01</td>
+                                            <td>81,634,322</td>
+                                            <td>10.29</td>
+                                            <td>87.49</td>
+                                            <td>79.95</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R02</td>
+                                            <td>71,899,448</td>
+                                            <td>17.73</td>
+                                            <td>90.32</td>
+                                            <td>83.58</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R03</td>
+                                            <td>148,552,964</td>
+                                            <td>38.26</td>
+                                            <td>87.26</td>
+                                            <td>80.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>R04</td>
+                                            <td>133,337,868</td>
+                                            <td>32.39</td>
+                                            <td>86.30</td>
+                                            <td>79.36</td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <p class="paragraph">参考基因组基本情况统计详细内容如下：</p>
+                            <ol>
+                                <li>BMK ID：百迈客对项目样品的统一编号；</li>
+                                <li>Total_Reads：Clean Reads数</li>
+                                <li>Mapped(%)：定位到参考基因组的Clean Reads数占所有Clean Reads数的百分比</li>
+                                <li>PCR-dup_ratio： 重复率</li>
+                                <li>Properly mapped：双端测序序列均定位到参考基因组上且距离符合测序片段的长度分布</li>
+                            </ol>
+
+                            <p class="paragraph">此项目的比对率约为87.85%，说明样品文库构建和测序正常。</p>
+                        </section>
+
+                        <!--3.2.2-->
+                        <section>
+                            <h5 class="title-h5" id="js-3-2-2">3.2.2 插入片段分布统计</h5>
+                            <p class="paragraph">通过检测双端序列在参考基因组上的起止位置，可以得到样品DNA打断后得到的测序片段的实际大小，即插入片段大小(Insert Size)，它是信息分析时的一个重要参数。插入片段大小的分布一般符合正态分布，且只有一个单峰，Insert Size分布图可以展示各个样品的插入片段的长度分布情况。</p>
+
+                            <p class="paragraph">每个样品测序数据插入片段大小的分析使用picard软件工具包中CollectInsertSizeMetric.jar软件实现。样品的插入片段分布图如下所示：</p>
+
+                            <div class="raxus-slider" data-autoplay="3000" data-arrows="show" data-keypress="true" data-thumbnail="bottom">
+                                <ul class="slider-relative">
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R01.quality.png' title="R01.quality">
+                                            <img src='src/images/R01.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide fix-width">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png' title="R02.quality">
+                                            <img src='src/images/Sesamum_v1.0.R03.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/R03.quality.png' title="R03.quality">
+                                            <img src='src/images/R03.quality.png'/>
+                                        </a>
+                                    </li>
+
+                                    <li class="slide">
+                                        <a class="img-toggle" href='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png' title="R04.quality">
+                                            <img src='src/images/Sesamum_v1.0.R04.sort.dedup.depth.cov.txt.png'/>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <p class="img-mark text-center small">图5 插入片段分布图</p>
+                            <p class="paragraph-mark center-block small img-width-max">
+                                注：横坐标为插入片段长度，纵坐标为其对应的reads数。<br />
+                            </p>
+                            <p class="paragraph">由上图可知，插入片段长度分布符合正态分布，插入片段长度峰值约为100-500bp，说明测序数据文库构建无异常。</p>
+
+                        </section>
+
+                    </article>
+
+                </section>
+
+                <!--参考文献-->
+                <section>
+                    <h3 id="js-reference">参考文献</h3>
+                    <ol>
+                        <li>Li H,Durbin R.Fast and accurate short read alignment with Burrows Wheeler Transform.Bioinformatics, 2009 25:1754 60</li>
+                        <li>McKenna A, Hanna M, Banks E, Sivachenko A, et al. The Genome Analysis Toolkit: a MapReduce framework for analyzing next generation DNA sequencing data. Genome Res. 2010 20:1297 303</li>
+                        <li>Li H, Handsaker B.,Wysoker A., Fennell T.,Ruan J., Homer N., Marth G., et al. The Sequence alignment/map (SAM) format and SAMtools. Bioinformatics, 2009 25:2078 9</li>
+                        <li>Cingolani P, Platts A, Wang le L, et al. A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain w1118; iso 2; iso 3.", Fly (Austin). 2012 Apr Jun;6(2):80 92.</li>
+                        <li>Ken Chen, John W Wallis, Michael D McLellan, et al. BreakDancer: an algorithm for high resolution mapping of genomic structural variation. Nature Methods, 2009 6:677 681</li>
+                        <li>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch?ffer, et al. Gapped BLAST and PSI BLAST: A New Generation of Protein Database Search Programs. Nucleic Acids Res, 1997 25(17): 3389</li>
+                        <li>Yangyang DENG, Jianqi LI, Songfeng WU, et al. Integrated nr Database in Protein Annotation System and Its Localization. Computer Engineering, 2006 32(5):71 74</li>
+                        <li>Yangyang DENG, Jianqi LI, Songfeng WU, et al. Integrated nr Database in Protein Annotation System and Its Localization. Computer Engineering, 2006 32(5):71_74</li>
+                        <li>Michael Ashburner, Catherine A. Ball, Judith A. Blake, et al. Gene ontology:  tool for the unification of biology. The Gene Ontology Consortium. Nat Genet, (25): 25–29</li>
+                        <li>Roman L.Tatusov, Michael Y.Galperin, Darren A.Natale, et al. The COG database: a tool for genome_scale analysis of protein functions and evolution. Nucleic Acids Res, 2000_7_1 28(1):33_6</li>
+                        <li>Minoru Kanehisa, Susumu Goto, Shuichi Kawashima, et al. The KEGG resource for deciphering the genome. Nucleic Acids Res 2004, (32):D277_D280</li>
+                    </ol>
+                </section>
+
+                <!--附录-->
+                <section>
+                    <div id="js-appendix" >
+                        <h3>附录</h3>
+                        <ul class="list-unstyled">
+                            <li class="paragraph"><a href="#" title="点击打开" target="_blank"><h4 class="title-h4">1. 文件目录列表.html</h4></a></li>
+                            <li class="paragraph"><a href="#" title="点击打开" target="_blank"><h4 class="title-h4">2. 软件说明列表.pdf</h4></a></li>
+                            <li class="paragraph"><a href="#" title="点击打开" target="_blank"><h4 class="title-h4">3. 结题报告PDF版.pdf</h4></a></li>
+                        </ul>
+
+                    </div>
+                </section>
+
+            </div><!--正文结束-->
+
+            <!--结题报告导航开始-->
+            <div class="col-md-3" role="complementary">
+                <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+                    <ul class="nav bs-docs-sidenav">
+
+                        <li>
+                            <a href="#js-overview">1 项目概况</a>
+                            <ul class="nav">
+                                <li><a class="js-active-bg" href="#js-contract-index">1.1 合同关键指标</a></li>
+                                <li><a class="js-active-bg" href="#js-project-base-info">1.2 项目基本信息</a></li>
+                                <li><a class="js-active-bg" href="#js-project-progress">1.3 项目执行情况</a></li>
+                                <li><a class="js-active-bg" href="#js-analysis-results">1.4 分析结果概述</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#js-project-process">2 项目流程</a>
+                            <ul class="nav">
+                                <li><a class="js-active-bg" href="#js-experiment-process">2.1 实验流程</a></li>
+                                <li><a class="js-active-bg" href="#js-Sequencing">3 上机测序</a></li>
+                                <li><a class="js-active-bg" href="#js-information-analysis-process">2.2 信息分析流程</a></li>
+                                <li><a class="js-active-bg" href="#js-information-analysis-process1">2.3 信息流程分析</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#js-analysis-methods-results">3 生物信息学分析方法和结果</a>
+                            <ul class="nav">
+                                <li><a href="#js-sequencing-quality-control">3.1 测序数据质控</a>
+                                    <ul class="nav">
+                                        <li><a class="js-active-bg" href="#js-sequencing-data">3.1.1 测序数据介绍</a></li>
+                                        <li><a class="js-active-bg" href="#js-mass-distribution">3.1.2 碱基测序质量分布</a></li>
+                                        <li><a class="js-active-bg" href="#js-3-1-3">3.1.3 碱基测序质量分布</a></li>
+                                        <li><a class="js-active-bg" href="#js-3-1-4">3.1.4 低质量数据过滤</a></li>
+                                        <li><a class="js-active-bg" href="#js-3-1-5">3.1.5 数据质量统计</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#js-3-2">3.2 与参考基因组比对统计</a>
+                                    <ul class="nav">
+                                        <li><a class="js-active-bg" href="#js-3-2-1">3.2.1 比对结果统计</a></li>
+                                        <li><a class="js-active-bg" href="#js-3-2-2">3.2.2 插入片段分布统计</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class="js-active-bg" href="#js-reference">参考文献</a>
+                        </li>
+
+                        <li>
+                            <a class="js-active-bg" href="#js-appendix">附录</a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+            </div><!--结题报告导航结束-->
+
+        </div><!--结题报告内容结束-->
+
+        <footer>
+            <div class="text-center">
+                <p>Copyright © 2009-2015 北京百迈客生物科技有限公司版权所有  京ICP备10042835号</p>
+                <p>公司地址：北京市顺义区南法信府前街12号顺捷大厦5层</p>
+                <ul class="list-inline list-unstyled">
+                    <li>Tel:400-600-3186</li>
+                    <li>Fax:010-57045001</li>
+                    <li>E-mail:<a href="mailto:tech@biomarker.com.cn">tech@biomarker.com.cn</a></li>
+                    <li>微信:biomarker_tech</li>
+                    <li><a href="http://www.biocloud.cn/external/login/toLogin" target="_blank">百迈客生物云平台</a></li>
+                    <li><a href="http://www.biomarker.com.cn/guanywm.php" target="_blank">关于我们</a></li>
+                </ul>
+            </div>
+
+        </footer>
+
+        <!--返回顶部开始-->
+        <div id="goTop">
+            <a class="backtotop" title="回顶部"><img src="src/images/goTop.jpg" class="back-tip"/></a>
+        </div><!--返回顶部结束-->
+    </div><!--结题报告结束-->
+
+    <script>
+
+    </script>
+
+</body>
+</html>

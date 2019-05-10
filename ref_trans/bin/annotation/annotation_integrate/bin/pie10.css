@@ -1,0 +1,188 @@
+.svgBackground{
+  fill:none;
+}
+.graphBackground{
+  fill:#f0f0f0;
+}
+
+/* graphs titles */
+.mainTitle{
+  text-anchor: middle;
+  fill: #000000;
+  font-size: 18px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+.subTitle{
+  text-anchor: middle;
+  fill: #999999;
+  font-size: 12px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.dataPointLabel{
+  fill: #000000;
+  text-anchor:middle;
+  font-size: 5px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+          
+  .key1,.dataPoint1{
+    fill: rgb(115,74,18);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+            
+  .key2,.dataPoint2{
+    fill: rgb(250,128,114);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+            
+  .key3,.dataPoint3{
+    fill: rgb(255,192,203);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+            
+  .key4,.dataPoint4{
+    fill: rgb(163,148,128);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+            
+  .key5,.dataPoint5{
+    fill: rgb(135,38,87);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  .key6,.dataPoint6{
+    fill: rgb(61,89,171);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  .key7,.dataPoint7{
+    fill: rgb(3,168,158);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  .key8,.dataPoint8{
+    fill: rgb(0,199,140);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  .key9,.dataPoint9{
+    fill: rgb(135,206,235);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  .key10,.dataPoint10{
+    fill: rgb(0,255,255);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  .key11,.dataPoint11{
+    fill: rgb(127,255,212);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+            
+  .key12,.dataPoint12{
+    fill: rgb(0,255,0);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+            
+  .key13,.dataPoint13{
+    fill: rgb(34,139,34);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+            
+  .key14,.dataPoint14{
+    fill: rgb(212,160,221);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+            
+  .key15,.dataPoint15{
+    fill: rgb(227,207,87);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  .key16,.dataPoint16{
+    fill: rgb(237,154,33);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  .key17,.dataPoint17{
+    fill: rgb(245,222,178);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  .key18,.dataPoint18{
+    fill: rgb(255,222,173);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  .key19,.dataPoint19{
+    fill: rgb(128,128,105);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  .key20,.dataPoint20{
+    fill: rgb(41,36,33);
+    fill-opacity: 0.8;
+    stroke: none;
+    stroke-width: 1px;
+  }
+
+  
+.keyText{
+  fill: #000000;
+  text-anchor:start;
+  font-size: 8px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}

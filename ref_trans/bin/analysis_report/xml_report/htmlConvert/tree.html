@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh_CN">
+  <meta charset="UTF-8">
+  <title>DirectoryTree</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="src/css/bootstrap.min.css">
+  <link rel="stylesheet" href="src/css/index.css"/>
+  <script src="src/js/jquery-1.11.3.min.js"></script>
+  <!--[if lt IE 9]>
+  <script src="src/js/html5shiv.min.js"></script>
+  <script src="src/js/respond.min.js"></script>
+  <![endif]-->
+  <script src="src/js/abixTreeList.js"></script>
+  <script>
+    $(function(){
+      $('#tree').abixTreeList();
+    });
+  </script>
+</head>
+<body>
+<div class="container">
+  <p><a href="javascript:" id="tree-expand-all">全部展开</a> | <a href="javascript:" id="tree-collapse-all">全部折叠</a></p>
+  <ul id="tree">
+    <li>Console
+      <ul>
+        <li>Process
+          <ul>
+            <li>Exception.php</li>
+            <li>Unix.php</li>
+          </ul>
+        </li>
+        <li>Exception.php</li>
+      </ul>
+    </li>
+    <li>JQuery
+      <ul>
+        <li>Controller
+          <ul>
+            <li>Action
+              <ul>
+                <li>Helper
+                  <ul>
+                    <li>AutoComplete.php</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>View
+          <ul>
+            <li>Helper
+              <ul>
+                <li>JQuery
+                  <ul>
+                    <li>Container.php</li>
+                  </ul>
+                </li>
+                <li>UiWidgetPane.php</li>
+              </ul>
+            </li>
+            <li>Exception.php</li>
+          </ul>
+        </li>
+        <li>Form
+          <ul>
+            <li>Decorator
+              <ul>
+                <li>AccordionContainer.php</li>
+              </ul>
+            </li>
+            <li>Element
+              <ul>
+                <li>AutoComplete.php</li>
+              </ul>
+            </li>
+            <li>Exception.php</li>
+          </ul>
+        </li>
+        <li>Form.php</li>
+        <li>Exception.php</li>
+      </ul>
+    </li>
+    <li>Db
+      <ul>
+        <li>Adapter
+          <ul>
+            <li>Firebird
+              <ul>
+                <li>Exception.php</li>
+              </ul>
+            </li>
+            <li>Firebird.php</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Exception.php</li>
+    <li>JQuery.php</li>
+  </ul>
+</div>
+</body>
+</html>

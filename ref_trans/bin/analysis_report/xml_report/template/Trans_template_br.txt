@@ -1,0 +1,786 @@
+》
+项目结果概述
+完成$sample_num个样品的转录组测序，共获得$base_num Clean Data，各样品Clean Data均达到$min_data，Q30碱基百分比在$min_Q30及以上。
+分别将各样品的Clean Reads与指定的参考基因组进行序列比对，比对效率从$min_map_ratio到$max_map_ratio不等。
+基于比对结果，进行可变剪接预测分析、基因结构优化分析以及新基因的发掘，发掘新基因$new_gene_num个，其中$new_gene_ann_num个得到功能注释。
+基于比对结果，进行基因表达量分析。根据基因在不同样品中的表达量识别差异表达基因，并对其进行功能注释和富集分析。
+》
+一级标题
+1 实验流程
+》
+正文
+转录组测序实验流程包括样品检测、文库构建及其质量控制和上机测序。实验流程见下图：
+》
+图片
+图1 转录组测序实验流程图
+》
+二级标题
+1.1 样品检测
+》
+正文
+高质量的RNA是整个项目成功的基础，为保证得到的数据准确性，我们使用以下方法对样品进行检测，检测结果达到要求后方可进行建库：
+(1) Nanodrop检测RNA的纯度（OD260/280）、浓度、核酸吸收峰是否正常；
+(2) Agilent 2100精确检测RNA的完整性，检测指标包括：RIN值、28S/18S、图谱基线有无上抬、5S峰。
+》
+二级标题
+1.2 文库构建
+》
+正文
+样品检测合格后，进行文库构建，主要流程如下：
+(1) 用带有Oligo（dT）的磁珠富集真核生物mRNA；
+(2) 加入Fragmentation Buffer将mRNA进行随机打断；
+(3) 以mRNA为模板，用六碱基随机引物（random hexamers）合成第一条cDNA链，然后加入缓冲液、dNTPs、RNase H和DNA polymerase I合成第二条cDNA链，利用AMPure XP beads纯化cDNA；
+(4) 纯化的双链cDNA再进行末端修复、加A尾并连接测序接头，然后用AMPure XP beads进行片段大小选择；
+(5) 最后通过PCR富集得到cDNA文库。
+》
+二级标题
+1.3 文库质控
+》
+正文
+文库构建完成后，对文库质量进行检测，检测结果达到要求后方可进行上机测序，检测方法如下：
+(1) 使用Qubit2.0进行初步定量，使用Agilent 2100对文库的insert size进行检测，insert size符合预期后才可进行下一步实验。
+(2) Q-PCR方法对文库的有效浓度进行准确定量（文库有效浓度＞2nM），完成库检。
+》
+二级标题
+1.4 上机测序
+》
+正文
+库检合格后，不同文库按照目标下机数据量进行pooling，用IlluminaHiSeq平台进行测序。
+》
+一级标题
+2 生物信息学分析
+》
+二级标题
+2.1 生物信息学分析流程概括
+》
+正文
+将下机数据进行过滤得到Clean Data，与指定的参考基因组进行序列比对，得到的Mapped Data，进行插入片段长度检验、随机性检验等文库质量评估；进行可变剪接分析、新基因发掘和基因结构优化等结构水平分析；根据基因在不同样品或不同样品组中的表达量进行差异表达分析、差异表达基因功能注释和功能富集等表达水平分析。
+转录组生物信息分析流程见下图：
+》
+图片
+图2 转录组生物信息分析流程图
+》
+二级标题
+2.2 测序数据及其质量控制
+》
+正文
+基于边合成边测序（Sequencing By Synthesis，SBS）技术，Illumina HiSeq高通量测序平台对cDNA文库进行测序，产出大量的高质量Data，称为原始数据（Raw Data），其大部分碱基质量打分能达到或超过Q30。
+Raw Data通常以FASTQ格式提供，每个测序样品的Raw Data包括两个FASTQ文件，分别包含所有cDNA片段两端测定的Reads。
+FASTQ格式文件示意图如下：
+》
+图片
+图3 FASTQ格式文件示意图
+注：FASTQ文件中通常每4行对应一个序列单元：第一行以@开头，后面接着序列标识（ID）以及其它可选的描述信息；第二行为碱基序列，即Reads；第三行以“+”开头，后面接着可选的描述信息；第四行为Reads每个碱基对应的质量打分编码，长度必须和Reads的序列长度相同，该行中每个字符对应的ASCII值减去33，即为对应第二行碱基的测序质量值。
+》
+三级标题
+2.2.1 测序碱基质量值
+》
+正文
+碱基质量值（Quality Score或Q-score）是碱基识别（Base Calling）出错的概率的整数映射。通常使用的Phred碱基质量值公式[1]为：
+》
+图片
+公式1 质量值计算公式
+》
+正文
+其中，P为碱基识别出错的概率。下表给出了碱基质量值与碱基识别出错的概率的对应关系：
+》
+表格
+表1 碱基质量值与碱基识别出错的概率的对应关系表
+》
+正文
+碱基质量值越高表明碱基识别越可靠，准确度越高。比如，对于碱基质量值为Q20的碱基识别，100个碱基中有1个会识别出错，以此类推。
+样品原始数据碱基质量值分布图见下图：
+》
+图片集合
+图4 碱基测序错误率分布图
+注：横坐标为Reads的碱基位置，纵坐标为单碱基错误率。
+》
+正文
+测序错误率受测序仪本身、测序试剂、样品等多个因素共同影响。由于测序过程中化学试剂的消耗，测序错误率会随着测序序列(Sequenced Reads)长度的增加而升高。此特征是Illumina高通量测序平台所具有的。
+》
+三级标题
+2.2.2 测序碱基含量分布
+》
+正文
+碱基类型分布检查用于检测有无AT、GC分离现象,由于RNA-Seq所测的序列为随机打断的cDNA片段，因随机性打断及碱基互补配对原则，理论上，G和C、A和T的含量每个测序循环上应分别相等，且整个测序过程稳定不变，呈水平线。由于Reads 5’端的前几个碱基为随机引物序列存在一定的偏好性，因此会在碱基分布图中出现前端波动较大的现象。
+》
+图片集合
+图5 ATGC含量分布图
+注：横坐标为Reads的碱基位置，纵坐标为单碱基所占比例。
+》
+三级标题
+2.2.3 测序质量控制
+》
+正文
+在进行数据分析之前，首先需要确保这些Reads有足够高的质量，以保证后续分析的准确。百迈客对数据进行严格的质量控制，进行如下过滤方式：
+(1) 去除含有接头的Reads；
+(2) 去除低质量的Reads（包括去除N的比例大于10%的Reads；去除质量值Q≤10的碱基数占整条Read的50%以上的Reads）。
+经过上述一系列的质量控制之后得到的高质量的Clean Data，以FASTQ格式提供。
+》
+图片集合
+图6 原始数据组成
+注：Adapter related：含有接头Reads数占总Raw Reads数的比例。Low quality：过滤掉的低质量Reads数占总Raw Reads数的比例。Clean Reads：经过过滤得到的Clean Reads 数占总Raw Reads 数的比例。
+》
+三级标题
+2.2.4 测序数据产出统计
+》
+正文
+该项目各样品数据产出统计见下表：
+》
+表格
+表2 测序数据统计表
+注：Samples：样品信息单样品名称；BMK-ID：百迈客样品分析编号；Clean reads:Clean Data中pair-end Reads总数；Clean bases：Clean Data总碱基数；GC content：Clean DataGC含量，即Clean Data中G和C两种碱基占总碱基的百分比；≥Q30%：Clean Data质量值大于或等于30的碱基所占的百分比。
+》
+正文
+经过测序质量控制，共得到$base_num Clean Data，各样品Q30碱基百分比均不小于$min_Q30。
+》
+二级标题
+2.3 转录组数据与参考基因组序列比对
+》
+正文
+本项目使用指定的基因组作为参考进行序列比对及后续分析。参考基因组下载地址见：$download。
+利用TopHat2[2]将Clean Reads与参考基因组进行序列比对，获取在参考基因组或基因上的位置信息，以及测序样品特有的序列特征信息。TopHat2是以比对软件Bowtie2[3]为基础，将转录组测序Reads比对到基因组上，通过分析比对结果识别外显子之间的剪接点（Splicing Junction）。这不仅为可变剪接分析提供了数据基础，还能够使更多的Reads比对到参考基因组，提高了测序数据的利用率。TopHat2分析流程如下图：
+》
+图片
+图7 TopHat2分析流程
+》
+正文
+比对过程可分为以下3部分：
+(1) 将Reads比对到已知转录组上（可选）；
+(2) 将未比对上的Reads整条比对到参考基因组上；
+(3) 将未比对上的Reads分段比对到参考基因组上。
+将比对到指定的参考基因组上的Reads称为Mapped Reads，基于Mapped  Reads进行后续信息分析。
+》
+三级标题
+2.3.1 比对效率统计
+》
+正文
+比对效率指Mapped Reads占Clean Reads的百分比，是转录组数据利用率的最直接体现。比对效率除了受数据测序质量影响外，还与指定的参考基因组组装的优劣、参考基因组与测序样品的生物学分类关系远近（亚种）有关。通过比对效率，可以评估所选参考基因组组装是否能满足信息分析的需求。
+》
+表格
+表3 样品测序数据与所选参考基因组的序列比对结果统计表
+注：BMK-ID：百迈客样品分析编号；Total Reads：Clean Reads数目，按单端计；Mapped Reads：比对到参考基因组上的Reads数目及在Clean Reads中占的百分比；Uniq Mapped Reads：比对到参考基因组唯一位置的Reads数目及在Clean Reads中占的百分比；Multiple Map Reads：比对到参考基因组多处位置的Reads数目及在Clean Reads中占的百分比；Reads Map to '+'：比对到参考基因组正链的Reads数目及在Clean Reads中占的百分比；Reads Map to '-'：比对到参考基因组负链的Reads数目及在Clean Reads中占的百分比。
+》
+正文
+从比对结果统计来看，各样品的Reads与参考基因组的比对效率在$min_map_ratio~$max_map_ratio之间。
+》
+三级标题
+2.3.2 比对结果作图
+》
+正文
+将比对到不同染色体上的Reads进行位置分布统计，绘制Mapped Reads在所选参考基因组上的覆盖深度分布图。
+》
+图片集合
+图8 Mapped Reads在参考基因组上的位置及覆盖深度分布图
+注：横坐标为染色体位置；纵坐标为覆盖深度以2为底的对数值，以10kb作为区间单位长度，划分染色体成多个小窗口（Window），统计落在各个窗口内的Mapped Reads作为其覆盖深度。蓝色为正链，绿色为负链。
+》
+正文
+统计Mapped Reads在指定的参考基因组不同区域（外显子、内含子和基因间区）的数目，绘制基因组不同区域上各样品Mapped Reads的分布图，如下：
+》
+图片集合
+图9 基因组不同区域Reads分布图
+注：图中将基因组分为外显子区、基因间区、内含子区，区域大小按Map到相应区域的Reads在所有Mapped Reads中所占的百分比。
+》
+正文
+理论上，来自成熟mRNA的Reads应比对到外显子区。Reads比对到内含子是由于mRNA前体和发生可变剪切的内含子保留；Reads比对到基因间区是由于基因组注释不完善。
+》
+三级标题
+2.3.3 比对结果可视化
+》
+正文
+转录组测序Reads与参考基因组序列比对结果文件（通常为BAM格式）、物种参考基因组序列和注释文件，推荐使用整合基因组浏览器（IGV，Integrative Genomics Viewer）进行可视化浏览。IGV具有以下特点：
+(1) 能在不同尺度下显示单个或多个Reads在参考基因组上的位置，包括Reads在各个染色体上的分布情况和在注释的外显子、内含子、剪接接合区、基因间区的分布情况等；
+(2) 能在不同尺度下显示不同区域的Reads丰度，以反映不同区域的转录水平；
+(3) 能显示基因及其剪接异构体的注释信息；
+(4) 能显示其他注释信息；
+(5) 既可以从远程服务器端下载各种注释信息，又可以从本地加载注释信息。
+》
+图片
+图10 IGV浏览器界面
+》
+二级标题
+2.4 转录组文库质量评估
+》
+正文
+合格的转录组文库是转录组测序的必要条件，为确保文库的质量，从以下3个不同角度对转录组测序文库进行质量评估：
+(1) 通过检验插入片段在基因上的分布，评估mRNA片段化的随机性、mRNA的降解情况；
+(2) 通过插入片段的长度分布，评估插入片段长度的离散程度；
+(3) 通过绘制饱和度图，评估文库容量和Mapped Data是否充足。
+》
+三级标题
+2.4.1 mRNA片段化随机性检验
+》
+正文
+mRNA片段化后的插入片段大小选择，是从mRNA序列中独立随机地抽取子序列，mRNA数目越大、打断方式和时间控制得越合适，目的RNA每个部分被抽取到的可能性就越接近，mRNA片段化随机性越高，mRNA上覆盖的Reads越均匀。
+通过Mapped Reads在各mRNA转录本上的位置分布，模拟mRNA片段化结果，检验mRNA片段化的随机程度。如果mRNA存在严重降解，被降解的碱基序列不能被测序，即无Reads比对上。因此，通过查看Mapped Reads在mRNA转录本上的位置分布可了解mRNA的降解情况。样品Mapped Reads在mRNA转录本上的位置分布如下图：
+》
+图片集合
+图11 Mapped Reads在mRNA上的位置分布图
+注：横坐标为标准化后的mRNA位置，纵坐标为对应位置区间内Reads在总Mapped Reads中所占百分比。由于参考的mRNA长度不同，作图时对把每个mRNA按照长度划分成100个区间，进而统计每一区间内的Mapped Reads数目及所占的比例，图中反映的是所有mRNA各个区间内的Mapped Reads比例的汇总。
+》
+三级标题
+2.4.2 插入片段长度检验
+》
+正文
+插入片段长度检验插入片段长度的离散程度能直接反映出文库制备过程中磁珠纯化的效果。通过插入片段两端的Reads在参考基因组上的比对起止点之间的距离计算插入片段长度。
+大部分的真核生物基因为断裂基因，外显子被内含子隔断，而转录组测序得到的是无内含子的成熟mRNA。当mRNA中跨内含子的片段两端的Reads比对到基因组上时，比对起止点之间的距离要大于插入片段长度。因此，在插入片段长度模拟分布图中，主峰右侧形成1个或多个杂峰。
+各样品的插入片段长度模拟分布图如下：
+》
+图片集合
+图12 插入片段长度模拟分布图
+注：横坐标为双端Reads在参考基因组上的比对起止点之间的距离，范围为0到800bp；纵坐标为比对起止点之间不同距离的双端Reads或插入片段数量。
+》
+三级标题
+2.4.3 转录组测序数据饱和度检验
+》
+正文
+为了评估数据是否充足并满足后续分析，对测序得到的基因数进行饱和度检测。由于一个物种的基因数目是有限的，且基因转录具有时间和空间特异性，因此随着测序量的增加，检测到的基因数目会趋于饱和。对于表达量越高的基因，越容易被检测定量。因此，对于表达量越低的基因，需要更大的数据量才能被准确定量。
+使用各样品的Mapped Data对检测到的不同表达情况的基因数目饱和情况进行模拟，绘制曲线图如下，可查看随着测序数据量的增加，检测到的不同表达量的基因数目是否趋于饱和。
+》
+图片集合
+图13 转录组数据饱和度模拟图
+注：本图为随机抽取10%、20%、30%……90%的总体测序数据单独进行基因定量分析的结果；横坐标代表抽取数据定位到基因组上的Reads数占总定位的reads数的百分比，纵坐标代表所有抽样结果中表达量差距小于15%的Gene在各个FPKM范围的百分比。
+》
+二级标题
+2.5 SNP/InDel分析
+》
+正文
+SNP（Single Nucleotide Polymorphisms）是指在基因组上由单个核苷酸变异形成的遗传标记，其数量很多，多态性丰富。百迈客基于各样品reads与参考基因组序列的TopHat2比对结果，使用$Call_SNP[4]软件识别测序样品与参考基因组间的单碱基错配，识别潜在的SNP位点。进而可以分析这些SNP位点是否影响了基因的表达水平或者蛋白产物的种类。
+InDel(insertion-deletion)是指相对于参考基因组，样本中发生的小片段的插入缺失，该插入缺失可能含一个或多个碱基。$Call_SNP也能够检测样品的插入缺失（InDel）。InDel变异一般比SNP变异少，同样反映了样品与参考基因组之间的差异，并且编码区的InDel会引起移码突变，导致基因功能上的变化。$Call_SNP识别标准如下：
+$snp_filter各样品分别按照以上条件筛选，最终获得可靠的SNP位点。
+SnpEff[5]是一款用于注释变异（SNP、InDel）和预测变异影响的软件。根据变异位点在参考基因组上的位置以及参考基因组上的基因位置信息，可以得到变异位点在基因组发生的区域（基因间区、基因区或CDS区等），以及变异产生的影响（同义非同义突变等）。
+由于转录完成之后，mRNA除了需要加帽、加Ploy(A)和可变剪接之外，较少mRNA会经历RNA编辑（RNA editing），从而会产生单碱基的替换、插入、缺失。RNA编辑能使同一基因产生序列多样的mRNA，但是这种多态性不是基因组固有的多态性。从比对结果来看，SNP和单碱基替换的RNA编辑结果是一样的。因此，通过转录组测序数据识别出SNP不免会含有RNA编辑的产物。
+》
+文件集合
+SNP/InDel位点信息
+注：Chr：SNP/InDel位点所在染色体编号；Pos：SNP/InDel位点在染色体上的位置；Gene_id：SNP/InDel位点所在的基因或原来未注释的基因区（表中用Intergenic表示）；Ref：所选参考基因组中的SNP/InDel等位；Alt：测序样品中识别到的其他的SNP/InDel等位；T*：样品T*该SNP/InDel位点的分型；Depth：样品T*该SNP/InDel位点的测序深度；AlleDp：样品T*该SNP/InDel位点的各等位测序深度；Effect：SNP/InDel所在区域或类型；Codon_change：编码改变方式，未改变用点表示。核酸编码表见附表3，Effect具体说明详见：http://snpeff.sourceforge.net/SnpEff_manual.html。
+》
+三级标题
+2.5.1 SNP位点统计
+》
+正文
+根据SNP位点碱基替换的不同方式，可以将SNP位点分为转换（Transition）和颠换（Transversion）两种类型。根据SNP位点的等位（Allele）数目，可以将SNP位点分为纯合型SNP位点（只有一个等位）和杂合型SNP位点（两个或多个等位）。不同物种杂合型SNP所占的比例存在差异。
+对各样品筛选出的SNP位点数目、转换类型比例、颠换类型比例以及杂合型SNP位点比例进行统计，如下表：
+》
+表格
+表4 SNP位点统计表
+注：BMK-ID：百迈客样品分析编号；SNP Number：SNP位点总数；Genic SNP：基因区SNP位点总数；Intergenic SNP：基因间区SNP位点总数；Transition：转换类型的SNP位点数目在总SNP位点数目中所占的百分比；Transversion：颠换类型的SNP位点数目在总SNP位点数目中所占的百分比；Heterozygosity：杂合型SNP位点数目在总SNP位点数目中所占的百分比。
+》
+正文
+SNP突变类型统计分布如下图所示：
+》
+图片集合
+图14 SNP突变类型分布图
+注：横轴为SNP突变类型，纵轴为相应的SNP数目。
+》
+三级标题
+2.5.2 基因的SNP密度分布
+》
+正文
+将每个基因的SNP位点数目除以基因的长度，得到每个基因的SNP位点密度值，统计所有基因的SNP位点密度值并做密度分布图。
+基因的SNP位点密度分布图如下：
+》
+图片
+图15 SNP密度分布图
+注：横轴为基因上平均每1000bp序列中分布的SNP数目，纵轴为基因数。
+》
+三级标题
+2.5.3 SNP/InDel注释
+》
+正文
+采用SNPEff分别对SNP，InDel注释，SNP，InDel的注释结果统计如下所示：
+》
+图片集合
+图16 SNP注释分类图
+注：纵轴为SNP所在区域或类型，横轴为分类数目。
+》
+图片集合
+图17 InDel注释分类图
+注：纵轴为InDel所在区域或类型，横轴为分类数目。
+》
+二级标题
+2.6 可变剪接事件预测
+》
+正文
+基因转录生成的前体mRNA（pre-mRNA），有多种剪接方式，选择不同的外显子，产生不同的成熟mRNA，从而翻译为不同的蛋白质，构成生物性状的多样性。这种转录后的mRNA加工过程称为可变剪接或选择性剪接（Alternative splicing）。
+采用Cufflinks[6]对tophat的比对结果进行拼接，并使用Cufflinks的Cuffcompare将Cufflinks拼接结果与初始注释结果比较分析，通过ASprofile[7]软件获取每个样品存在的可变剪接类型及相应表达量。基因可变剪接类型如下图所示：
+》
+图片
+图18 基因可变剪接类型
+注：(A) 外显子跳跃和多外显子跳跃；(B) 单内含子保留和多内含子保留；(C) 可变外显子；(D) 可变转录起始位点；(E) 可变转录终止位点；其中红色处为可变剪接类型。
+》
+正文
+ASprofile软件将可变剪接类型细分为12类，分别为：
+(1) TSS: Alternative 5' first exon (transcription start site) 第一个外显子可变剪切；
+(2) TTS: Alternative 3' last exon (transcription terminal site) 最后一个外显子可变剪切；
+(3) SKIP: Skipped exon(SKIP_ON,SKIP_OFF pair) 单外显子跳跃；
+(4) XSKIP: Approximate SKIP (XSKIP_ON,XSKIP_OFF pair) 单外显子跳跃（模糊边界）；
+(5) MSKIP: Multi-exon SKIP (MSKIP_ON,MSKIP_OFF pair) 多外显子跳跃；
+(6) XMSKIP: Approximate MSKIP (XMSKIP_ON,XMSKIP_OFF pair) 多外显子跳跃（模糊边界）；
+(7) IR: Intron retention (IR_ON, IR_OFF pair) 单内含子滞留；
+(8) XIR: Approximate IR (XIR_ON,XIR_OFF pair) 单内含子滞留（模糊边界）；
+(9) MIR: Multi-IR (MIR_ON, MIR_OFF pair) 多内含子滞留 ；
+(10) XMIR: Approximate MIR (XMIR_ON, XMIR_OFF pair) 多内含子滞留（模糊边界）；
+(11) AE: Alternative exon ends (5', 3', or both) 可变 5'或3'端剪切；
+(12) XAE: Approximate AE 可变 5'或3'端剪切（模糊边界）。
+》
+三级标题
+2.6.1 可变剪接事件数量统计
+》
+正文
+各样品中预测的可变剪接事件数量统计见下图：
+》
+图片集合
+图19 可变剪接事件数量统计图
+注：横轴为该种事件下可变剪切的数量，纵轴为可变剪切事件的分类缩写。
+》
+三级标题
+2.6.2 可变剪切事件结构统计
+》
+文件集合
+可变剪切事件结构统计表
+注：event_id: AS事件编号；event_type: AS事件类型；gene_id: 基因ID；chrom: 染色体编号；event_start: AS事件起始位置；event_end: AS事件结束位置；event_pattern: AS事件特征 ；strand: 基因正负链信息。
+》
+二级标题
+2.7 基因结构优化分析
+》
+正文
+由于使用的软件或数据本身的局限性，导致所选参考基因组的注释往往不够精确，这样就有必要对原有注释的基因结构进行优化。如果在原有基因边界之外的区域有连续的Mapped Reads支持，将基因的非翻译区（Untranslated Region，UTR）向上下游延伸，修正基因的边界。此项目对$optimized_gene_num个基因结构进行了优化，基因结构优化结果见下面文件：
+》
+文件
+基因结构优化结果
+注：GeneID：基因ID；Locus：基因座，格式为“染色体编号:起点坐标-终点坐标”；Strand：正负链；Site：优化的位置，3'或5'UTR；OriginalRegion：原来注释的第一个或最后一个外显子的起止坐标；OptimizedRegion：延伸之后的第一个或最后一个外显子的起止坐标。
+》
+二级标题
+2.8 新基因分析
+》
+三级标题
+2.8.1 新基因发掘
+》
+正文
+基于所选参考基因组序列，使用Cufflinks软件对Mapped Reads进行拼接，并与原有的基因组注释信息进行比较，寻找原来未被注释的转录区，发掘该物种的新转录本和新基因，从而补充和完善原有的基因组注释信息。过滤掉编码的肽链过短（少于50个氨基酸残基）或只包含单个外显子的序列，共发掘$new_gene_num个新基因。新基因的GFF格式文件见下面文件：
+》
+文件
+新基因的GFF文件
+注：文件总共有9列。第1列：染色体号；第2列：注释信息的来源，Cufflinks软件；第3列：注释特征（Feature）类型；第4、5列：特征序列的起止位置；第6列：得分，数字，注释信息可能性的说明，“.”表示缺失值；第7列：特征序列所在的正负链；第8列：仅对注释类型为CDS有效，表示起始编码的位置，有效值为0、1、2，“.”表示缺失值；第9列：以多个键值对组成的注释信息描述。
+》
+正文
+提供基因组注释补充信息的同时，也提供以FASTA格式存储的新基因序列。新基因序列的FASTA文件见下面文件：
+》
+文件
+新基因序列FASTA文件
+注：FASTA格式每一个序列单元以“>”开头，直到出现下一个“>”之前为止。“>”开头的行为序列ID行，后面紧接着基因ID；下面一行或多行为该基因的碱基序列。
+》
+三级标题
+2.8.2 新基因功能注释
+》
+正文
+使用BLAST[8]软件将发掘的新基因与NR[9]，Swiss-Prot[10]，GO[11]，COG[12]，KOG[13]，Pfam[14]，KEGG[15]数据库进行序列比对，使用KOBAS2.0 [16]得到新基因的KEGG Orthology结果，预测完新基因的氨基酸序列之后使用HMMER[17]软件与Pfam数据库比对，获得新基因的注释信息。
+最终得到各数据库注释的新基因数量统计见下表：
+》
+表格
+表5 新基因功能注释结果统计
+注：Annotated databases：用于功能注释的数据库；New Gene Number：获得相应数据库注释信息的新基因数目。
+》
+二级标题
+2.9 基因表达量分析
+》
+三级标题
+2.9.1 基因表达定量
+》
+正文
+转录组测序可以模拟成一个随机抽样的过程，即从一个样品转录组的任意一段核酸序列上独立地随机抽取序列片段。抽取自某一基因（或转录本）的片段数目服从负二项分布[18]（Beta Negative Binomial Distribution）。基于该数学模型，使用Cufflinks软件的Cuffquant和Cuffnorm组件，通过Mapped Reads在基因上的位置信息，对转录本和基因的表达水平进行定量。
+抽取自一个转录本的片段数目与测序数据（或Mapped Data）量、转录本长度、转录本表达水平都有关，为了让片段数目能真实地反映转录本表达水平，需要对样品中的Mapped Reads的数目和转录本长度进行归一化。Cuffquant和Cuffnorm采用FPKM[7]（Fragments Per Kilobase of transcript per Million fragments mapped）作为衡量转录本或基因表达水平的指标，FPKM计算公式如下：
+》
+图片
+公式2 FPKM计算公式
+》
+正文
+公式中，cDNA Fragments表示比对到某一转录本上的片段数目，即双端Reads数目；Mapped Fragments (Millions)表示比对到转录本上的片段总数，以10^6为单位；Transcript Length(kb)：转录本长度，以10^3个碱基为单位。
+》
+文件
+基因表达量结果文件
+注： 第一列表示基因 ID,其余各列表示基因在不同样品中的表达量(FPKM)
+》
+三级标题
+2.9.2 样品基因表达量总体分布
+》
+正文
+利用转录组数据检测基因表达具有较高的灵敏度。通常情况下，能够测序到的蛋白质编码基因表达水平FPKM值横跨10^(-2)到10^4六个数量级[19]。
+》
+图片
+图20 各样品FPKM密度分布对比图
+注：图中不同颜色的曲线代表不同的样品，曲线上点的横坐标表示对应样品FPKM的对数值，点的纵坐标表示概率密度。
+》
+正文
+从箱线图中不仅可以查看单个样品基因表达水平分布的离散程度，还可以直观的比较不同样品的整体基因表达水平。该项目各样品的FPKM分布箱线图如下：
+》
+图片
+图21 各样品FPKM箱线图
+注：图中横坐标代表不同的样品；纵坐标表示样品表达量FPKM的对数值。该图从表达量的总体离散角度来衡量各样品表达水平。
+》
+正文
+为研究基因在不同实验处理下的表达模式，首先对选取样品基因的FPKM进行标准化归一处理，然后对标准化的FPKM值进行K-means聚类分析，同一类的基因在不同的实验处理下具有相似的变化趋势，具有相似变化趋势的基因往往具有相似的功能：
+》
+图片集合
+图22 基因表达聚类折线图
+注：x轴表示实验分组，y轴表示标准化的FPKM。黑色线条表示这个cluster中的所有基因在不同实验条件下相对表达量的平均值的折线图。
+》
+二级标题
+2.10 差异表达分析
+》
+正文
+基因表达具有时间和空间特异性，在两个不同条件下，表达水平存在显著差异的基因或转录本，称之为差异表达基因（DEG）或差异表达转录本（DET）。
+差异表达分析得到的基因集合叫做差异表达基因集，使用“A_vs_B”的方式命名。根据两（组）样品之间表达水平的相对高低，差异表达基因可以划分为上调基因（Up-regulated Gene）和下调基因（Down-regulated Gene）。上调基因在样品（组）B中的表达水平高于样品（组）A中的表达水平；反之为下调基因。上调和下调是相对的，由所给A和B的顺序决定。
+》
+三级标题
+2.10.1 重复相关性评估
+》
+正文
+研究表明，基因的表达在不同的个体间存在生物学可变性[20][21]（Biological Variability），不同的基因之间表达的可变程度存在差异，而转录组测序技术、qPCR以及生物芯片等技术都不能消除这种可变性。为了寻找真正感兴趣的差异表达基因，需要考虑和处理因生物学可变性造成的表达差异[22]。目前最常用且最有效的方法是在实验设计中设立生物学重复（Biological Replicates）。重复条件限制越严格，重复样品数目越多，寻找到的差异表达基因越可靠。对于设立生物学重复的项目，评估生物学重复的相关性对于分析转录组测序数据非常重要。生物学重复的相关性不仅可以检验生物学实验操作的可重复性；还可以评估差异表达基因的可靠性和辅助异常样品的筛查。
+将皮尔逊相关系数r（Pearson’s Correlation Coefficient）作为生物学重复相关性的评估指标[23]。r2越接近1，说明两个重复样品相关性越强。百迈客保证对同一条件的所有生物学重复样品进行同人同批样品提取、建库，同Run同Lane测序。对异常样品进行详细分析，并根据分析结果与沟通共识决定重新进行实验，还是剔除异常样品进行后续分析。
+该项目样品间相关性统计作图：
+》
+图片
+图23 两两样品的表达量相关性热图
+》
+三级标题
+2.10.2 差异表达筛选
+》
+正文
+对于有生物学重复的样本，$rep[24]适用于进行样品组间的差异表达分析，获得两个生物学条件之间的差异表达基因集；对于没有生物学重复的样本，使用$norep[25]进行差异分析。
+在差异表达基因检测过程中，将Fold Change≥$fc且$FDR&lt;$fdr作为筛选标准。差异倍数（Fold Change）表示两样品（组）间表达量的比值。错误发现率（False Discovery Rate，FDR）是通过对差异显著性p值（p-value）进行校正得到的。由于转录组测序的差异表达分析是对大量的基因表达值进行独立的统计假设检验，会存在假阳性问题，因此在进行差异表达分析过程中，采用了公认的Benjamini-Hochberg校正方法对原有假设检验得到的显著性p值（p-value）进行校正，并最终采用FDR作为差异表达基因筛选的关键指标。
+》
+文件集合
+差异表达基因结果
+注：ID：基因编号；*_Count:样本的基因表达count值；*_FPKM:样本基因表达FPKM值；FDR：错误发现率；log2FC：表达量差异倍数的对数值；regulated：上调基因（up）还是下调基因（down）。
+》
+正文
+通过火山图（Volcano Plot）可以快速地查看基因在两个（组）样品中表达水平的差异，以及差异的统计学显著性。差异表达火山图见下图：
+》
+图片集合
+图24 差异表达火山图
+注：差异表达火山图中的每一个点表示一个基因，横坐标表示某一个基因在两样品中表达量差异倍数的对数值；纵坐标表示基因表达量变化的统计学显著性的负对数值。横坐标绝对值越大，说明表达量在两样品间的表达量倍数差异越大；纵坐标值越大，表明差异表达越显著，筛选得到的差异表达基因越可靠。图中绿色的点代表下调差异表达基因，红色的点代表上调差异表达基因，黑色的点代表非差异表达基因。
+》
+正文
+通过MA图可以直观地查看基因的两个（组）样品的表达水平和差异倍数的整体分布。差异表达MA图见下图：
+》
+图片集合
+图25 差异表达MA图
+注：差异表达基因MA图中每一个点代表一个基因。横坐标为A值：log2(FPKM)，即两样品中表达量均值的对数值；纵坐标为M值：log2(FC)，即两样品间基因表达量差异倍数的对数值，用于衡量表达量差异的大小。图中绿色的点代表下调差异表达基因，红色的点代表上调差异表达基因，黑色的点代表非差异表达基因。
+》
+三级标题
+2.10.3 差异表达基因数目统计
+》
+正文
+差异表达基因集基因数目统计如下表：
+》
+表格
+表6 差异表达基因数目统计表
+注：DEG Set：差异表达基因集名称；DEG Number：差异表达基因数目；up-regulated：上调基因的数目；down-regulated：下调基因数目。
+》
+正文
+将每组差异基因按照要求进行维恩图绘制，见下图。图中展示了各比较组特有的差异基因的个数，以及比较组间的共有的差异基因个数。
+》
+图片
+图26 差异表达基因维恩图
+》
+三级标题
+2.10.4 差异表达基因聚类分析
+》
+正文
+对筛选出的差异表达基因做层次聚类分析，将具有相同或相似表达模式的基因进行聚类，差异表达基因聚类结果如下图：
+》
+图片集合
+图27 差异表达基因聚类图
+注：横坐标代表样品名称及样品的聚类结果，纵坐标代表的差异基因及基因的聚类结果。图中不同的列代表不同的样品，不同的行代表不同的基因。颜色代表了基因在样品中的表达量水平log10（FPKM+0.000001）。
+》
+文件集合
+差异表达基因聚类网页图
+注：横坐标代表样品名称及样品的聚类结果，纵坐标代表的差异基因及基因的聚类结果。图中不同的列代表不同的样品，不同的行代表不同的基因。颜色代表了基因在样品中的表达量水平log10（FPKM+0.000001）。单击图可以展示各聚类cluster的基因的平均表达水平及GO富集情况。
+》
+二级标题
+2.11 差异表达基因功能注释和富集分析
+》
+正文
+对差异表达基因进行数据库的功能注释，各差异表达基因集注释到的基因数量统计见下表：
+》
+表格
+表7 注释的差异表达基因数量统计表
+注：DEG Set：差异表达基因集名称；Total：注释到的差异表达基因数目；第三列到最后一列表示各功能数据库注释到的差异表达基因数目。
+》
+三级标题
+2.11.1 差异表达基因GO分类
+》
+正文
+GO数据库是GO组织（Gene Ontology Consortium）于2000年构建的一个结构化的标准生物学注释系统，旨在建立基因及其产物知识的标准词汇体系，适用于各个物种。GO注释系统是一个有向无环图，包含三个主要分支，即：生物学过程（Biological Process），分子功能（Molecular Function）和细胞组分（Cellular Component）。
+差异表达基因GO分类统计结果见下图：
+》
+图片集合
+图28 差异表达基因GO注释分类统计图
+注：横坐标为GO分类，纵坐标左边为基因数目所占百分比，右边为基因数目。此图展示的是在差异表达基因背景和全部基因背景下GO各二级功能的基因富集情况，体现两个背景下各二级功能的地位，具有明显比例差异的二级功能说明差异表达基因与全部基因的富集趋势不同，可以重点分析此功能是否与差异相关。
+》
+三级标题
+2.11.2 差异表达基因GO富集层次分析
+》
+正文
+对样品间差异基因进行富集分析，富集到的Term做topGO[26]有向无环图。topGO有向无环图能直观展示差异表达基因富集的GO节点（Term）及其层级关系，是差异表达基因GO富集分析的结果图形化展示，分支代表包含关系，从上至下所定义的功能描述范围越来越具体。差异表达基因的topGO有向无环图如下：
+》
+图片集合
+图29 差异表达基因topGO有向无环图
+注：对每个GO节点进行富集，最显著的10个节点在图中用方框表示，图中还包含其各层对应关系。每个方框（或椭圆）内给出了该GO节点的内容描述和富集显著性值。不同颜色代表不同的富集显著性，颜色越深，显著性越高。
+》
+文件集合
+差异表达基因topGO富集结果
+注：GO ID：GO term的ID；Term：GO功能；Annotated：所有基因注释到该功能的基因数；Significant：DEG注释到该功能的基因数；Expected：注释到该功能DEG数目的期望值；KS：富集Term的显著性统计，KS值越小，表明富集越显著。
+》
+三级标题
+2.11.3 差异表达基因COG分类
+》
+正文
+COG（Cluster of Orthologous Groups of proteins）数据库是基于细菌、藻类、真核生物的系统进化关系构建得到的，利用COG数据库可以对基因产物进行直系同源分类。
+差异表达基因COG分类统计结果见下图：
+》
+图片集合
+图30 差异表达基因COG注释分类统计图
+注：横坐标为COG各分类内容，纵坐标为基因数目。在不同的功能类中，基因所占多少反映对应时期和环境下代谢或者生理偏向等内容，可以结合研究对象在各个功能类的分布做出科学的解释。
+》
+三级标题
+2.11.4 差异表达基因KEGG注释
+》
+正文
+在生物体内，不同的基因产物相互协调来行使生物学功能，对差异表达基因的通路（Pathway）注释分析有助于进一步解读基因的功能。KEGG（Kyoto Encyclopedia of Genes and Genomes）是系统分析基因功能、基因组信息数据库，它有助于研究者把基因及表达信息作为一个整体网络进行研究。作为是有关Pathway的主要公共数据库(Kanehisa,2008），KEGG提供的整合代谢途径 (pathway)查询，包括碳水化合物、核苷、氨基酸等的代谢及有机物的生物降解，不仅提供了所有可能的代谢途径，而且对催化各步反应的酶进行了全面的注解，包含有氨基酸序列、PDB库的链接等等，是进行生物体内代谢分析、代谢网络研究的强有力工具。
+差异表达基因的通路注释结果见下图：
+》
+图片集合
+图31 差异表达基因的KEGG通路注释图
+注：相对于对照组来说，红色框标记的酶与上调基因有关，绿色框标记的酶与下调基因有关。蓝色框标记的酶与上调和下调基因均有关，框内的数字代表酶的编号（EC number），而整个通路由多种酶催化的复杂生化反应构成，此通路图中与差异表达基因相关的酶均用不同的颜色标出，根据研究对象间的差异，重点研究某些代谢通路相关基因的差异表达情况，通过通路解释表型差异的根源。
+》
+正文
+对差异表达基因KEGG的注释结果按照KEGG中通路类型进行分类，分类图如下图所示：
+》
+图片集合
+图32 差异表达基因KEGG分类图
+注：纵坐标为KEGG代谢通路的名称，横坐标为注释到该通路下的基因个数及其个数占被注释上的基因总数的比例。
+》
+三级标题
+2.11.5 差异表达基因KEGG通路富集分析
+》
+正文
+分析差异表达基因在某一通路上是否发生显著差异（over-presentation）即为差异表达基因的通路富集分析。Pathway显著性富集分析以KEGG数据库中Pathway为单位，应用超几何检验，找出与整个基因组背景相比，在差异表达基因中显著性富集的Pathway。差异表达基因KEGG通路富集分析结果见下图，图中呈现了显著性Q值最小的前20个通路。
+》
+图片集合
+图33 差异表达基因KEGG通路富集散点图
+注：图中每一个圆表示一个KEGG通路，纵坐标表示通路名称，横坐标为富集因子（Enrichment Factor），表示差异基因中注释到某通路的基因比例与所有基因中注释到该通路的基因比例的比值。富集因子越大，表示差异表达基因在该通路中的富集水平越显著。圆圈的颜色代表qvalue，qvalue为多重假设检验校正之后的P value,qvalue越小，表示差异表达基因在该通路中的富集显著性越可靠；圆圈的大小表示通路中富集的基因数目，圆圈越大，表示基因越多。
+》
+正文
+在该图中越靠近右下角的图形代表的通路，参考价值越大；反之亦然。挑选了富集显著性最可靠（即Q value最小）的前20个通路进行结果展示。
+》
+文件集合
+差异表达基因的KEGG富集结果
+注： Pathway：KEGG通路名称；KO：KEGG通路ID；Enrichment_Factor：富集因子；Q-value：富集的显著性统计，Q-value越小，富集程度越高。
+》
+三级标题
+2.11.6 差异表达基因蛋白互作网络
+》
+正文
+STRING[27]是收录多个物种预测的和实验验证的蛋白质-蛋白质互作的数据库，包括直接的物理互作和间接的功能相关。结合差异表达分析结果和数据库收录的互作关系对，构建差异表达基因互作网络。
+对于数据库中包含的物种，可直接从数据库中提取出目标基因集的互作关系对构建互作网络；对于数据库中未收录信息的物种，使用BLAST软件，将目的基因与数据库中的蛋白质进行序列比对，寻找同源蛋白，根据同源蛋白的互作关系对构建互作网络。构建完成的蛋白质互作网络可导入Cytoscape[28]软件进行可视化。
+Cytoscape可视化的差异表达基因蛋白质互作网络如下图：
+》
+图片
+图34 差异表达基因蛋白质互作网络图
+注：图中的节点为蛋白质，边为互作关系。互作网络中节点(node)的大小与此节点的度(degree)成正比，即与此节点相连的边越多，它的度越大，节点也就越大。节点的颜色与此节点的聚集系数(clustering coefficient)相关，颜色梯度由绿到红对应聚集系数的值由低到高；聚集系数表示此节点的邻接点之间的连通性好坏，聚集系数值越高表示此节点的邻接点之间的连通性越好。边(edge)的宽度表示此边连接的两个节点间的互相作用的关系强弱，互相作用的关系越强，边越宽。没有的组合代表没有互作关系。
+》
+二级标题
+2.12 DEU分析
+》
+正文
+RNA-seq除了gene水平的差异分析外，还可以进行exon水平的差异分析。对于有生物学重复的样本，采用DEXSeq[29]进行DEU（differential exon usage）分析。将FDR&lt;0.01作为筛选外显子差异表达的标准。
+》
+文件集合
+DEU分析结果
+注：geneID: 基因编号；exonID：外显子编号；Log2(FC): 表达量差异倍数的对数值；pvalue: 差异显著性p值；FDR：错误发现率。
+》
+正文
+差异外显子模式图见下图：
+》
+图片
+图35 差异外显子模式图
+注：(A) Fitted expression. The plot represents the expression estimates from a call to testForDEU.Shown in red is the exon that showed significant differential exon usage；(B) Normalized counts. As in Figure A, with normalized count values of each exon in each；(C) Fitted splicing. The plot represents the estimated effects, as in Figure A, but after subtraction of overall changes in gene expression；(D) Transcripts. As in Figure A, but including the annotated transcript models。
+》
+文件集合
+外显子差异分析结果
+注：DEU分析网页结果。
+》
+二级标题
+2.13 基因融合分析
+》
+正文
+融合基因是指两个基因的全部或一部分序列相互融合为一个新的基因的过程，是染色体易位、中间缺失或染色体倒置所致的结果，通常具有致瘤性，在各种不同的肿瘤中普遍存在。使用TopHat-Fusion[30]发现融合基因的转录产物。在所有样品共发现$fusion个候选的融合基因。
+候选融合基因的结果见下面文件：
+》
+文件
+TopHat-Fusion发现候选融合基因信息
+》
+参考文献
+[1] Ewing B, Hillier L, Wendl MC, Green P. Base-calling of automated sequencer traces using phred. I. Accuracy assessment. Genome Research. 1998,8 (3): 175-185.
+[2] Kim D, Pertea G, Trapnell C, Pimentel H, Kelley R, Salzberg SL. TopHat2: accurate alignment of transcriptomes in the presence of insertions, deletions and gene fusions. Genome Biology. 2013, 14:R36.
+[3] Langmead B, Trapnell C. Ultrafast and memory-efficient alignment of short DNA sequences to the human genome. Genome Biology. 2009, 10(3): R25.
+[4] $snp_reference
+[5] Cingolani P, Platts A, Wang L L, et al. A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain w1118; iso-2; iso-3. Fly. 2012, 6(2): 80-92.
+[6] Trapnell C, Williams BA, Pertea G, Mortazavi A, et al. Transcript assembly and quantification by RNA Seq reveals unannotated transcripts and isoform switching during cell differentiation. Nature Biotechnology. 2010, 28(5):511-515.
+[7] Florea L, Song L, Salzberg S L. Thousands of exon skipping events differentiate among splicing patterns in sixteen human tissues. F1000Research, 2013, 2:188.
+[8] Altschul S F, Madden TL, Zhang J, et al. Gapped BLAST and PSI BLAST: A New Generation of Protein Database Search Programs. Nucleic Acids Research. 1997, 25(17): 3389-3402.
+[9] Deng YY, Li JQ, Wu SF, Zhu YP, et al. Integrated nr Database in Protein Annotation System and Its Localization. Computer Engineering. 2006, 32(5):71-74.
+[10] Apweiler R, Bairoch A, Wu CH, et al. UniProt: the universal protein knowledgebase. Nucleic acids research. 2004, 32: D115-D119.
+[11] Ashburner M, Ball C A, Blake J A, et al. Gene ontology: tool for the unification of biology. Nature genetics. 2000, 25(1): 25-29.
+[12] Tatusov RL, Galperin MY, Natale D A. The COG database: a tool for genome scale analysis of protein functions and evolution. Nucleic Acids Research. 2000, 28(1):33-36.
+[13] Koonin EV, Fedorova ND, Jackson JD, et al. A comprehensive evolutionary classification of proteins encoded in complete eukaryotic genomes. Genome biology. 2004, 5(2): R7.
+[14] Finn RD, Bateman A, Clements J, et al. Pfam: the protein families database. Nucleic acids research. 2013: gkt1223.
+[15] Kanehisa M, Goto S, Kawashima S, Okuno Y, et al. The KEGG resource for deciphering the genome. Nucleic Acids Research. 2004, 32:D277-D280.
+[16] Xie C, Mao X, Huang J, et al. KOBAS 2.0: a web server for annotation and identification of enriched pathways and diseases. Nucleic acids research, 2011, 39(suppl 2): W316-W322.
+[17] Eddy S R. Profile hidden Markov models. Bioinformatics, 1998, 14(9): 755-763.
+[18] Jiang H, Wong WH. Statistical inferences for isoform expression in RNA-Seq. Bioinformatics. 2009, 25(8): 1026-1032.
+[19] Djebali S, Davis CA, Merkel A, et al. Landscape of transcription in human cells. Nature. 2012, 489(7414): 101-108.
+[20] Elowitz MB, Levine AJ, Siggia ED, Swain PS. Stochastic gene expression in a single cell. Science. 2002, 297:1183-1186.
+[21] Kasper D. Hansen, Zhijin Wu, et al. Sequencing technology does not eliminate biological variability. Nature Biotechnology. 2011, 572-573.
+[22] Robasky K, Lewis NE, Church GM. The role of replicates for error mitigation in next-generation sequencing. Nature Reviews Genetics. 2013.
+[23] Schulze S K, Kanwar R, et al. SERE: Single-parameter quality control and sample comparison for RNA-Seq. BMC genomics. 2012, 13(1): 524.
+[24] $rep_reference
+[25] $norep_reference
+[26] Alexa A, Rahnenfuhrer J. topGO: enrichment analysis for gene ontology. R package version 2.8, 2010.
+[27] Franceschini A, Szklarczyk D, Frankild S, et al. STRING v9. 1: protein-protein interaction networks, with increased coverage and integration. Nucleic acids research. 2013, 41: D808-D815.
+[28] Shannon P, Markiel A, Ozier O, et al. Cytoscape: a software environment for integrated models of biomolecular interaction networks. Genome research. 2003, 13(11): 2498-2504.
+[29] Anders S, Reyes A, Huber W. Detecting differential usage of exons from RNA-seq data. Genome research, 2012, 22(10): 2008-2017.
+[30] Kim D, Salzberg S L. TopHat-Fusion: an algorithm for discovery of novel fusion transcripts. Genome Biol. 2011, 12(8): R72.
+》
+一级标题
+附录
+》
+二级标题
+附表一：软件列表
+》
+表格
+表1 软件列表
+注：第三列为#表示无软件连接。正文中未提及软件使用的生物信息分析均由BMK自主研发的软件实现，不在表中列出。
+》
+二级标题
+附表二：数据库列表
+》
+表格
+表2 数据库列表
+》
+二级标题
+附表三：核酸编码表
+》
+表格
+表3 核酸编码表
+》
+二级标题
+附表四：七大注释数据库信息说明
+》
+表格
+表4 七大注释数据库信息说明
+注：第三列为#表示无软件连接。正文中未提及软件使用的生物信息分析均由BMK自主研发的软件实现，不在表中列出。
+》
+二级标题
+附件五：材料方法英文说明
+》
+三级标题
+2 Sample collection and preparation
+》
+三级标题
+2.1 RNA quantification and qualification
+》
+正文
+RNA concentration was measured using NanoDrop 2000(Thermo). RNA integrity was assessed using the RNA Nano 6000 Assay Kit of the Agilent Bioanalyzer 2100 system (Agilent Technologies, CA, USA).
+Library preparation for Transcriptome sequencing
+A total amount of 1 μg RNA per sample was used as input material for the RNA sample preparations. Sequencing libraries were generated using NEBNext UltraTM RNA Library Prep Kit for Illumina (NEB, USA) following manufacturer’s recommendations and index codes were added to attribute sequences to each sample. Briefly, mRNA was purified from total RNA using poly-T oligo-attached magnetic beads. Fragmentation was carried out using divalent cations under elevated temperature in NEBNext First Strand Synthesis Reaction Buffer（5X）. First strand cDNA was synthesized using random hexamer primer and M-MuLV Reverse Transcriptase. Second strand cDNA synthesis was subsequently performed using DNA Polymerase I and RNase H . Remaining overhangs were converted into blunt ends via exonuclease/polymerase activities. After adenylation of 3’ ends of DNA fragments, NEBNext Adaptor with hairpin loop structure were ligated to prepare for hybridization. In order to select cDNA fragments of preferentially 240 bp in length, the library fragments were purified with AMPure XP system (Beckman Coulter, Beverly, USA). Then 3 μl USER Enzyme (NEB, USA) was used with size-selected, adaptor-ligated cDNA at 37°C for 15 min followed by 5 min at 95°C before PCR. Then PCR was performed with Phusion High-Fidelity DNA polymerase, Universal PCR primers and Index (X) Primer. At last, PCR products were purified (AMPure XP system) and library quality was assessed on the Agilent Bioanalyzer 2100 system.
+》
+三级标题
+2.2 Clustering and sequencing
+》
+正文
+The clustering of the index-coded samples was performed on a cBot Cluster Generation System using TruSeq PE Cluster Kit v4-cBot-HS (Illumia) according to the manufacturer’s instructions. After cluster generation, the library preparations were sequenced on an Illumina Hiseq Xten platform and paired-end reads were generated.  
+》
+三级标题
+3 Data analysis
+》
+三级标题
+3.1 Quality control
+》
+正文
+Raw data (raw reads) of fastq format were firstly processed through in-house perl scripts. In this step, clean data(clean reads) were obtained by removing reads containing adapter, reads containing ploy-N and low quality reads from raw data. At the same time, Q20, Q30, GC-content and sequence duplication level of the clean data were calculated. All the downstream analyses were based on clean data with high quality.
+》
+三级标题
+3.2 Comparative analysis
+》
+正文
+The adaptor sequences and low-quality sequence reads were removed from the data sets. Raw sequences were transformed into clean reads after data processing. These clean reads were then mapped to the reference genome sequence. Only reads with a perfect match or one mismatch were further analyzed and annotated based on the reference genome. Tophat2 tools soft were used to map with reference genome.
+》
+三级标题
+3.3 Gene functional annotation
+》
+正文
+Gene function was annotated based on the following databases:Nr (NCBI non-redundant protein sequences)；Nt (NCBI non-redundant nucleotide sequences)；Pfam (Protein family)；KOG/COG (Clusters of Orthologous Groups of proteins)；Swiss-Prot (A manually annotated and reviewed protein sequence database)；KO (KEGG Ortholog database)；GO (Gene Ontology).
+》
+三级标题
+3.4 SNP calling
+》
+正文
+Picard - tools v1.41 and samtools v0.1.18 were used to sort, remove duplicated reads  and merge the bam alignment results of each sample. GATK2 or Samtools software was used to perform SNP calling. Raw vcffiles were filtered with GATK standard filter method and other parameters ( clusterWindowSize: 10; MQ0 >= 4 and (MQ0/(1.0*DP)) > 0.1; QUAL &lt;  10; QUAL &lt;  30.0 or QD &lt;  5.0 or HRun > 5), and only SNPs with distance > 5 were retained. 
+》
+三级标题
+3.5 Quantification of gene expression levels
+》
+正文
+Quantification of gene expression levelsGene expression levels were estimated by fragments per kilobase of transcript per million fragments mapped. The formula is shown as follow:  
+》
+图片
+图 formula of FPKM
+》
+三级标题
+3.6 Differential expression analysis
+》
+正文
+For the samples with biological replicates:
+Differential expression analysis of two conditions/groups was performed using the DESeq R package (1.10.1). DESeq provide statistical routines for determining differential expression in digital gene expression data using a model based on the negative binomial distribution. The resulting P values were adjusted using the Benjamini and Hochberg’s approach for controlling the false discovery rate. Genes with an adjusted P-value &lt;  0.05 found by DESeq were assigned as differentially expressed.
+For the samples without biological replicates:
+Prior to differential gene expression analysis, for each sequenced library, the read counts were adjusted by edgeR program package through one scaling normalized factor. Differential expression analysis of two samples was performed using the EBSeq R package. The resulting FDR (false discovery rate) were adjusted using the PPDE(posterior probability of being DE).The FDR &lt; 0.05 &amp; |log2（foldchange）| ≥1 was set as the threshold for significantly differential expression.
+》
+三级标题
+3.7 GO enrichment analysis
+》
+正文
+Gene Ontology (GO) enrichment analysis of the differentially expressed genes (DEGs) was implemented by the GOseq R packages based Wallenius non-central hyper-geometric distribution（Young et al, 2010） ，which can adjust for gene length bias in DEGs.
+》
+三级标题
+3.8 KEGG pathway enrichment analysis
+》
+正文
+KEGG (Kanehisa et al., 2008) is a database resource for understanding high-level functions and utilities of the biological system, such as the cell, the organism and the ecosystem, from molecular-level information, especially large-scale molecular datasets generated by genome sequencing and other high-throughput experimental technologies (http://www.genome.jp/kegg/). We used KOBAS (Mao et al., 2005) software to test the statistical enrichment of differential expression genes in KEGG pathways.
+》
+三级标题
+3.9 PPI (Protein Protein Interaction)
+》
+正文
+The sequences of the DEGs was blast (blastx) to the genome of a related species (the protein protein interaction of which exists in the STRING database: http://string-db.org/) to get the predicted PPI of these DEGs. Then the PPI of these DEGs were visualized in Cytoscape (Shannon et al, 2003).
+》
+二级标题
+References
+》
+正文
+Altschul S F, Madden T L, Schaffer A A, et al. (1997). Gapped BLAST and PSI-BLAST: a new generation of protein database search programs. Nucleic Acids Res. 25:3389-3402. (BLAST) 
+Anders S, Huber W. (2010).Differential expression analysis for sequence count data. Genome Biology,doi:10.1186/gb-2010-11-10-r106. (DESeq)
+Finn R D, Tate J, Mistry J, et al. (2008). The Pfam protein families database. Nucleic Acids Res 36, D281-D288. (Pfam)
+Gotz S, Garcia-Gomez J M, Terol J, et al. (2008).High-throughput functional annotation and data mining with the Blast2GO suite.Nucleic Acids Research 36, 3420-3435. (BLAST2go) 
+Mao X, Cai T, Olyarchuk J G, et al. (2005). Automated genome annotation and pathway identification using the KEGG Orthology (KO) as a controlled vocabulary.Bioinformatics 21, 3787-3793. (KOBAS) 
+McKenna A, Hanna M, Banks E, et al. (2010). The Genome Analysis Toolkit: A MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res. 20, 1297-1303. (GATK)
+Li H, Handsaker B,Wysoker A. The Sequence Alignment/Map format and SAMtools. Bioinformatics 2009,25 (16): 2078-2079.(Samtools)
+Kanehisa M, Araki M, Goto S, et al. (2008). KEGG for linking genomes to life and the environment. Nucleic Acids research 36:D480-D484. (KEGG)
+Wang L, Feng Z, Wang X, et al. (2010) DEGseq: an R package for identifying differentially expressed genes from RNA-seq data. Bioinformatics 26, 136-138. (DEGseq) 
+Robinson M D, McCarthy D J, Smyth G K. (2010). edgeR: a Bioconductor package for differential expression analysis of digital gene expression data. Bioinformatics 26:139-140.(edgeR)
+Young M D, Wakefield M J, Smyth G K, et al. (2010).Gene ontology analysis for RNA-seq: accounting for selection bias. Genome Biology, doi:10.1186/gb-2010-11-2-r14. (GOseq) 
+Shannon P, Markiel A, Ozier O, et al. (2003). Cytoscape: a software environment for integrated models of biomolecular interaction networks. Genome Res. 13, 2498-2504. (Cytoscape)
+

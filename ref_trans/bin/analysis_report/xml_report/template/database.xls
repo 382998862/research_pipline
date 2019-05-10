@@ -1,0 +1,10 @@
+Database	Description	Homepage
+NR	non-redundant protein sequence database	ftp://ftp.ncbi.nih.gov/blast/db/
+Swiss-Prot	A manually annotated, non-redundant protein sequence database	http://www.uniprot.org/
+GO	Gene Ontology database	http://www.geneontology.org/
+COG	The database of Clusters of Orthologous Groups of proteins	http://www.ncbi.nlm.nih.gov/COG/
+KOG	The database of Clusters of Protein homology	http://www.ncbi.nlm.nih.gov/KOG/
+Pfam	The database of Homologous protein family	http://pfam.xfam.org/
+KEGG	The database of Kyoto Encyclopedia of Genes and Genomes	http://www.genome.jp/kegg/
+STRING	Search Tool for the Retrieval of Interacting Genes/Proteins	http://www.string-db.org/
+Ensembl	Database Sscrofa10.2 download from	http://asia.ensembl.org/index.html

@@ -1,0 +1,18 @@
+医学有参v3.0-修改内容如下:
+
+        1.增加可变剪切事件预测分析中基因的symbol；
+        2.修改结题报告中基因差异分析的部分展示方式——增加差异表达分析结果展示；
+        3.添加差异可变剪切分析；此部分可在detail.cfg配置文件中修改：Readtype和ReadLength两个参数；也可不设置，默认按照流程脚本的默认参数进行分析。
+	eg: 当前路径下：config/ref_trans.detail.cfg，如需要设置下面参数（去除#，更改相应的内容）：
+		#Readtype        paired（single or paired）
+		#ReadLength      150
+	4.修改xml，用于报告推云；线下是deg_local.xml, 推云是deg.xml。
+	eg: 参考报告：/share/nas1/lijj/pipeline/ref_trans/v2.9.9_raw/Analysis/Web_Report
+	5.修改差异可变剪切分析中的差异表达MA图，将图中的横坐标改为log2(FPKM)；
+	6.转录因子相关的分析：TFBS预测针对所有差异基因进行分析，提供每个基因的TFBS位点信息和TFBS序列特征图;(在detail.cfg文件中注意填写spe_id)
+				spe_id : (human: 9606; mouse: 10090; rat: 10116)
+                              TF活性分析同样针对所有差异基因进行分析，给出TFs在所有样本中的活性分析表和相应的聚类热图展示，同时给出基因和转录因子的关系表以及TFs的共调控网络及其网络图;
+                                detail.cfg文件中增加：TFDB参数     /share/nas1/lijj/develop/TF_activity/animalTFDB3.0/路径下
+				－2019.03.12
+	7.更新转录因子注释的数据库，改为AnimalTFDB 3.0－2019.03.12
+	8.更新QC_Report结果（data.cfg文件中增加AllSample_stat参数可在质控报告中展示Rawdata信息） - 2019.04.01

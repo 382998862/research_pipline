@@ -1,0 +1,8 @@
+数据库名称	数据库描述
+NR 数据库	NCBI中的非冗余蛋白质数据库，包含了Swissprot、PIR(Protein Information Resource)、PRF(Protein Research Foundation)、PDB(Protein Data Bank)蛋白质数据库及从GenBank和RefSeq的CDS数据翻译过来的蛋白质数据信息
+Swissprot 数据库	由EBI（欧洲生物信息学研究所）负责维护的数据库，包含了有相关参考文献且经过校对的蛋白质注释信息数据库，可信度很高
+COG 数据库	对基因产物进行同源分类的数据库，是一个较早的识别直系同源基因的数据库，通过对多种生物的蛋白质序列大量比较而来的
+KOG 数据库	针对真核生物，基于基因直系同源关系，结合进化关系将来自不同物种的同源基因分为不同的Ortholog簇，目前KOG有4852个分类。来自同一Ortholog的基因具有相同的功能，这样就可以将功能注释直接继承给同一KOG簇的其他成员
+Pfam 数据库	最全面的蛋白结构域注释的分类系统。蛋白质是由一个个结构域组成的，而每个特定结构域的蛋白序列具有一定保守性。Pfam将蛋白质的结构域分为不同的蛋白家族，通过蛋白序列的比对建立了每个家族的氨基酸序列的HMM统计模型
+GO 数据库	国际标准化的基因功能分类体系，提供了一套动态更新的标准词汇表来全面描述生物体中基因和基因产物的功能属性。该数据库总共有三大类，分别是分子功能 (molecular function)，细胞组分 (cellular component) 和生物学过程 (biological process)，各自描述了基因产物可能行使的分子功能，以及所处的细胞环境和参与的生物学过程。GO数据库中最基本的概念是Term，每个条目都有一个Term名，比如"cell"、"fibroblast growth factor receptor binding"或者"signal transduction"，同时有一个唯一的编号，形如GO:nnnnnnn
+KEGG 数据库	系统分析基因产物在细胞中的代谢途径以及这些基因产物功能的数据库。它整合了基因组、化学分子和生化系统等方面的数据，包括代谢通路(PATHWAY)、药物(DRUG)、疾病(DISEASE)、基因序列 (GENES) 及基因组 (GENOME) 等。利用该数据库有助于把基因及表达信息作为一个整体的网络进行研究

@@ -1,0 +1,250 @@
+/**
+ * Created by 北京百迈客生物科技有限公司(zhengj) on 2015/8/1.
+ */
+body {
+    background-color: #E6E6E6;
+    font-size: 15px;
+}
+
+.container {
+    background-color: #fff;
+    min-width: 972px;
+}
+.mylink:link {
+	text-decoration: underline;
+	color: #FF0000;
+}
+.mylink:visited {
+	text-decoration: underline;
+	color: #CE0000;
+}
+.mylink:hover {
+	text-decoration: underline;
+	font-size: 16px;
+	color: #FF0000;
+}
+	.mylink:active {
+	text-decoration: underline;
+}
+
+.shadow {
+    -webkit-box-shadow: 0 0 2.5em rgba(0,0,0,.3);
+    -moz-box-shadow: 0 0 2.5em rgba(0,0,0,.3);
+    box-shadow: 0 0 2.5em rgba(0,0,0,.3);
+}
+
+@media(min-width:1200px) {
+    header img {
+        width: 160px;
+        margin-right: 8%;
+    }
+}
+
+@media(min-width:992px ) and (max-width: 1200px) {
+    header img {
+        width: 160px;
+        margin-right: 1%;
+    }
+}
+
+@media(max-width:992px ) {
+    header img {
+        width: 160px;
+        margin-right: 1%;
+    }
+}
+
+/*文本段落*/
+h1 {
+    color: #0066FF;
+}
+h2 {
+    color: #2e6da4;
+    padding: 20px 0 40px;
+
+    /*border-bottom: 1px solid #eee;*/
+}
+
+h3 {
+    color: #337ab7;
+    border-bottom: 1px solid #eee;
+}
+
+h4 {
+     color: #0066CC;
+     font-size: 20px;
+}
+
+h5 {
+    color: #0066CC;
+    font-size: 18px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.8;
+}
+
+p img {
+    padding: 15px 0;
+}
+
+ul li,ol li {
+    line-height: 1.8em;
+    margin-left: 2em;
+}
+
+ul.bs-docs-sidenav li {
+    line-height: 1.8em;
+    margin-left: 0.5em;
+}
+
+.title-h3 {
+    text-indent: 0.5em;
+}
+
+.title-h4 {
+    text-indent: 1em;
+}
+
+.title-h5 {
+    text-indent: 2em;
+}
+
+.title-h6 {
+    text-indent: 3em;
+}
+
+.paragraph {
+    text-indent: 2em;
+    line-height: 1.8em;
+    padding: 0 2em;
+    margin: 0 0 0.5em;
+}
+.p-abstract{
+    text-indent: 2em;
+    line-height: 1.8em;
+    padding: 0 2em;
+    margin: 0 0 1em;
+}
+.paragraph-none-indent {
+    line-height: 1.8em;
+    padding: 0 2em;
+    margin: 0 0 2em;
+}
+
+.paragraph-mark {
+    line-height: 1.8em;
+    margin-bottom: 2em;
+}
+
+.img-mark {
+    line-height: 1.8em;
+    margin: 1em 0;
+}
+
+.img-width-min {
+    width: 24%;
+    max-width: 200px;
+}
+
+.img-width-normal {
+    width: 50%;
+    max-width: 400px;
+}
+
+.img-width-max {
+    width: 80%;
+    max-width: 640px;
+}
+
+.table-responsive {
+    padding: 0 2em;
+}
+
+.table-mark {
+    padding: 0 2.5em;
+}
+
+/*
+/!*横向布局*!/
+.albumSlider-h {  width: 700px;  margin: 0 auto;  padding: 5px 10px;  font-size: 10px;  position: relative;}
+.albumSlider-h .fullview{position:relative;}
+.albumSlider-h .fullview,
+.albumSlider-h .fullview img {height: 500px;}
+.albumSlider-h .fullview img {position:absolute; top:0; left:0;}
+.albumSlider-h .button,
+.albumSlider-h .imglistwrap{ position: relative; height: 90px;  width: 532px;  overflow: hidden;}
+.albumSlider-h .slider{  position: relative;  height: 79px;  width: auto;  margin-top: 1em;  background: #fff;}
+.albumSlider-h .imglist{position: relative;width:999em;}
+.albumSlider-h li{float: left;margin:0 3px;list-style-type: none;}
+.albumSlider-h li img{width:90px;margin:9px 0 0 2px;  border: 1px solid #D3D3D3;;}
+.albumSlider-h a{display:block; outline:none;}
+.albumSlider-h li a img:hover,
+.albumSlider-h li.current a img{border: 1px solid #337ab7;}
+.albumSlider-h .prev {height:76px;width:16px;margin:0 5px;
+    background:url(../images/prev.png) no-repeat 100% 50% ;cursor:pointer;}
+.albumSlider-h .next {height:76px;width:16px;margin:0 5px;
+    background:url(../images/next.png) no-repeat 100% 50% ;cursor:pointer;}
+.albumSlider-h .movebackward{float: left; background-position: 0 50%; }
+.albumSlider-h .moveforward{float: left; }
+
+.img-prev .img-switch-btn,.img-next .img-switch-btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -43px 0 0 -18px;
+    width: 40px;
+    height: 72px;
+    cursor: pointer;
+    opacity: .5;
+    background: url(http://img1.bdstatic.com/static/detailnew/img/slider_btn_icon_0624374.png) no-repeat 0 0;
+    _background-image: url(http://img0.bdstatic.com/static/detailnew/img/slider_btn_icon_8_1d4d716.png);
+}
+
+
+.img-prev li:hover,.img-next li:hover {
+    color: #ddd;
+    opacity: 1;
+}
+
+.img-prev .img-switch-btn {
+    background-position: 0 -87px;
+    margin-left: -320px;
+}
+
+.img-next .img-switch-btn {
+    background-position: 0 0px;
+    margin-left: 200px;
+}*/
+
+
+/*返回顶部*/
+.backtotop {
+    position: fixed;
+    right: 21%;
+    top: 93%;
+}
+
+.back-tip {
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+}
+
+footer {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    margin-top: 30px;
+}
+
+/*tree css*/
+.abix-tree-list li {
+    list-style: none;
+}
+.abix-tree-list .collapsed span.icon,
+.abix-tree-list .expanded span.icon {
+    margin-right: 6px;
+    cursor: pointer;
+}

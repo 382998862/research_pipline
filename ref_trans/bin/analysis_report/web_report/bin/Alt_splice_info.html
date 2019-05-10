@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>可变剪接分析</title>
+
+    <!-- Linking styles -->
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/menu.css" type="text/css" media="screen">
+</head>
+<body>
+
+    <!-- Defining the header section of the page -->
+    <header id="header">
+        <div class="head_container">
+            <div class="logo">
+                <a href="../index.html" title="返回首页"><img src="./images/logo.gif" height=57 /></a>
+            </div>
+            <nav>
+                <!-- Defining the navigation menu -->
+                <ul class="topnav">
+
+                    <li>
+                        <a href="rawdata_genome.html">测序数据统计</a>
+                    </li>
+
+                    <li>
+                        <a href="geneExpression.html">比对效率及基因表达量</a>
+                    </li>
+
+                    <li>
+                        <a href="Alt_splice.html">可变剪接及新基因分析</a>
+                    </li>
+
+                    <li>
+                        <a href="deg.html">差异基因分析</a>
+                    </li>
+
+
+                    <li>
+                        <a href="../index.html">HOME</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+    <!-- Defining the main content section of the page -->
+    <div class="primary_content container">
+
+        <!-- column #1 -->
+        <div id="column1" class="column">
+
+            <div class="block">
+
+                <h3>可变剪接结果示例</h3>
+
+                <div class="bcon">
+
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;每个测序样品的Reads与参考基因组比对，通过比对情况确定剪接位置，比较剪接位置的变化从而确定不同的可变剪接类型，具体采用tophat<a target="_blank" href="http://tophat.cbcb.umd.edu/index.html">[1]</a>软件进行序列比对及剪接分析，通过splicegrapher<a target="_blank" href="http://splicegrapher.sourceforge.net/">[2]</a>软件统计可变剪接类型及作图分析。</p>
+                    <p>结果表格示例：按照结果格式展示，并非项目真实数据；<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font size="3" color="#1430E5">Exon Skipping：</font>
+                    <table id="customers">
+
+                        <tr>
+                            <th>Gene</th>
+                            <th>Location</th>
+                            <th>Strand</th>
+                            <th>Alt type</th>
+                            <th>skipped exon start</th>
+                            <th>skipped exon start</th>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.100</td>
+                            <td>chr03:822-8046</td>
+                            <td>+</td>
+                            <td>skippedExon</td>
+                            <td>6894</td>
+                            <td>7160</td>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.10004</td>
+                            <td>chr02:3050-7389</td>
+                            <td>-</td>
+                            <td>skippedExon</td>
+                            <td>5368</td>
+                            <td>5640</td>
+                        </tr>
+                        <tr>
+                            <th>基因的ID</th>
+                            <th>基因位置</th>
+                            <th>基因正负链方向</th>
+                            <th>可变剪接类型</th>
+                            <th>跳过外显子起始</th>
+                            <th>跳过外显子结束</th>
+                        </tr>
+                    </table>
+                    <br/>&nbsp;&nbsp;&nbsp;&nbsp;<font size="3" color="#1430E5">Intron retention：</font>
+                    <table id="customers">
+
+                        <tr>
+                            <th>Gene</th>
+                            <th>Location</th>
+                            <th>Strand</th>
+                            <th>Alt type</th>
+                            <th>Intron retention start</th>
+                            <th>Intron retention start</th>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.100</td>
+                            <td>chr03:822-8046</td>
+                            <td>+</td>
+                            <td>IntronRetention</td>
+                            <td>6894</td>
+                            <td>7160</td>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.10006</td>
+                            <td>chr01:243-3740</td>
+                            <td>+</td>
+                            <td>IntronRetention</td>
+                            <td>1578</td>
+                            <td>1820</td>
+                        </tr>
+                        <tr>
+                            <th>基因的ID</th>
+                            <th>基因位置</th>
+                            <th>基因正负链方向</th>
+                            <th>可变剪接类型</th>
+                            <th>保留内含子起始</th>
+                            <th>保留内含子结束</th>
+                        </tr>
+                    </table>
+                    <br/>&nbsp;&nbsp;&nbsp;&nbsp;<font size="3" color="#1430E5">Alt3' splice：</font>
+                    <table id="customers">
+
+                        <tr>
+                            <th>Gene</th>
+                            <th>Location</th>
+                            <th>Strand</th>
+                            <th>Alt type</th>
+                            <th>Alt exon start</th>
+                            <th>Alt exon end</th>
+                            <th>Cons exon start</th>
+                            <th>Cons exon end</th>
+                            <th>Alt site</th>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.100</td>
+                            <td>chr03:43412-43680</td>
+                            <td>+</td>
+                            <td>Alt3' site</td>
+                            <td>435291</td>
+                            <td>435632</td>
+                            <td>435625</td>
+                            <td>435632</td>
+                            <td>435291:435624</td>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.10004</td>
+                            <td>chr02:66300-70031</td>
+                            <td>+</td>
+                            <td>Alt3' site</td>
+                            <td>67770</td>
+                            <td>67911</td>
+                            <td>67802</td>
+                            <td>67911</td>
+                            <td>67770:67801</td>
+                        </tr>
+                        <tr>
+                            <th>基因的ID</th>
+                            <th>基因位置</th>
+                            <th>基因正负链方向</th>
+                            <th>可变剪接类型</th>
+                            <th>可变外显子起始</th>
+                            <th>可变外显子结束</th>
+                            <th>保守外显子起始</th>
+                            <th>保守外显子结束</th>
+                            <th>Alt3'边界</th>
+                        </tr>
+                    </table>
+                    <br/>&nbsp;&nbsp;&nbsp;&nbsp;<font size="3" color="#1430E5">Alt5' splice：</font>
+                    <table id="customers">
+
+                        <tr>
+                            <th>Gene</th>
+                            <th>Location</th>
+                            <th>Strand</th>
+                            <th>Alt type</th>
+                            <th>Alt exon start</th>
+                            <th>Alt exon end</th>
+                            <th>Cons exon start</th>
+                            <th>Cons exon end</th>
+                            <th>Alt site</th>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.100</td>
+                            <td>chr03:343412-343680</td>
+                            <td>-</td>
+                            <td>Alt5' site</td>
+                            <td>3435291</td>
+                            <td>3435632</td>
+                            <td>3435625</td>
+                            <td>3435632</td>
+                            <td>3435291:3435624</td>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.10004</td>
+                            <td>chr02:5866300-5870031</td>
+                            <td>-</td>
+                            <td>Alt5' site</td>
+                            <td>5867770</td>
+                            <td>5867911</td>
+                            <td>5867802</td>
+                            <td>5867911</td>
+                            <td>5867770:5867801</td>
+                        </tr>
+                        <tr>
+                            <th>基因的ID</th>
+                            <th>基因位置</th>
+                            <th>基因正负链方向</th>
+                            <th>可变剪接类型</th>
+                            <th>可变外显子起始</th>
+                            <th>可变外显子结束</th>
+                            <th>保守外显子起始</th>
+                            <th>保守外显子结束</th>
+                            <th>Alt5'边界</th>
+                        </tr>
+                    </table>
+                    <br/>&nbsp;&nbsp;&nbsp;&nbsp;<font size="3" color="#1430E5">Alt First exon：</font>
+                    <table id="customers">
+
+                        <tr>
+                            <th>Gene</th>
+                            <th>Location</th>
+                            <th>Strand</th>
+                            <th>Alt type</th>
+                            <th>Alt exon start</th>
+                            <th>Alt exon end</th>
+                            <th>Cons exon start</th>
+                            <th>Cons exon end</th>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.147</td>
+                            <td>chr03:283930-283978</td>
+                            <td>-</td>
+                            <td>AltFirstExon</td>
+                            <td>283946</td>
+                            <td>283950</td>
+                            <td>283957</td>
+                            <td>283961</td>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.10004</td>
+                            <td>chr02:613086-630254</td>
+                            <td>+</td>
+                            <td>AltFirstExon</td>
+                            <td>627759</td>
+                            <td>627809</td>
+                            <td>614034</td>
+                            <td>614249</td>
+                        </tr>
+                        <tr>
+                            <th>基因的ID</th>
+                            <th>基因位置</th>
+                            <th>基因正负链方向</th>
+                            <th>可变剪接类型</th>
+                            <th>可变外显子起始</th>
+                            <th>可变外显子结束</th>
+                            <th>保守外显子起始</th>
+                            <th>保守外显子结束</th>
+                        </tr>
+                    </table>
+                    <br/>&nbsp;&nbsp;&nbsp;&nbsp;<font size="3" color="#1430E5">Alt Last exon：</font>
+                    <table id="customers">
+
+                        <tr>
+                            <th>Gene</th>
+                            <th>Location</th>
+                            <th>Strand</th>
+                            <th>Alt type</th>
+                            <th>Alt exon start</th>
+                            <th>Alt exon end</th>
+                            <th>Cons exon start</th>
+                            <th>Cons exon end</th>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.147</td>
+                            <td>chr03:283930-283978</td>
+                            <td>-</td>
+                            <td>AltLastExon</td>
+                            <td>283946</td>
+                            <td>283950</td>
+                            <td>283957</td>
+                            <td>283961</td>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.10004</td>
+                            <td>chr02:613086-630254</td>
+                            <td>+</td>
+                            <td>AltLastExon</td>
+                            <td>627759</td>
+                            <td>627809</td>
+                            <td>614034</td>
+                            <td>614249</td>
+                        </tr>
+                        <tr>
+                            <th>基因的ID</th>
+                            <th>基因位置</th>
+                            <th>基因正负链方向</th>
+                            <th>可变剪接类型</th>
+                            <th>可变外显子起始</th>
+                            <th>可变外显子结束</th>
+                            <th>保守外显子起始</th>
+                            <th>保守外显子结束</th>
+                        </tr>
+                    </table>
+                    <br/>&nbsp;&nbsp;&nbsp;&nbsp;<font size="3" color="#1430E5">Mutually exclusive exon：</font>
+                    <table id="customers">
+
+                        <tr>
+                            <th>Gene</th>
+                            <th>Location</th>
+                            <th>Strand</th>
+                            <th>Alt type</th>
+                            <th>Alt exon start</th>
+                            <th>Alt exon end</th>
+                            <th>Cons exon start</th>
+                            <th>Cons exon end</th>
+                        </tr>
+                        <tr>
+                            <td>Demo_gene.10004</td>
+                            <td>chr02:613086-630254</td>
+                            <td>+</td>
+                            <td>MutuallyExon</td>
+                            <td>627759</td>
+                            <td>627809</td>
+                            <td>614034</td>
+                            <td>614249</td>
+                        </tr>
+                        <tr>
+                            <th>基因的ID</th>
+                            <th>基因位置</th>
+                            <th>基因正负链方向</th>
+                            <th>可变剪接类型</th>
+                            <th>外显子1起始</th>
+                            <th>外显子1结束</th>
+                            <th>外显子2起始</th>
+                            <th>外显子2结束</th>
+                        </tr>
+                    </table>
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="block">
+                <a href="../index.html" class="button"><span><span>HOME</span></span></a>
+                <a href="#" class="button"><span><span>TOP</span></span></a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer><!-- Defining the footer section of the page -->
+        <div class="copyright">
+            <div class="container">百迈客生物科技有限公司 &copy; 2012 | <a href="#">BMK</a></div>
+        </div>
+    </footer>
+</body>
+</html>

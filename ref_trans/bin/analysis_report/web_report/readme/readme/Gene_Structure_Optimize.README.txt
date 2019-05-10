@@ -1,0 +1,19 @@
+Gene_Structure_Optimize：基因结构优化分析结果
+
+该分析主要根据实际测序得到的基因坐标对注释文件中的基因边界进行优化。
+
+结果文件：
+
+1.Species.geneStructure.optimize.xls：基因结构优化的详细结果。
+
+
+=============================================================================================================
+
+1.Species.geneStructure.optimize.xls：基因结构优化的详细结果 结果说明
+
+	GeneID：基因ID；
+	Gene LOCUS：基因坐标；
+	Strand：正负链；
+	UTR site：优化的边界;
+	Original region：原始的边界坐标（作为边界的外显子）；
+	Optimized region：优化后的边界坐标（作为边界的外显子）。
