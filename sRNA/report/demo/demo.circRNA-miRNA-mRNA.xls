@@ -1,0 +1,4 @@
+#ceRNA1	Symbol	ceRNA2	Symbol	ceRNA1_num	ceRNA2_num	overlap_num	ceRNA1_miRNA_uniq	ceRNA2_miRNA_uniq	overlap_miRNA
+gene:ENSG00000157212	PAXIP1	circRNA:13:49993793|50044768	13:49993793|50044768	2	7	2	--	hsa-miR-1273d;hsa-miR-3192-5p;hsa-miR-4433b-3p;hsa-miR-4433b-5p;hsa-miR-4707-5p	hsa-miR-1228-5p;hsa-miR-370-3p
+gene:ENSG00000157212	PAXIP1	circRNA:12:110395101|110445551	12:110395101|110445551	2	9	2	--	hsa-miR-1234-3p;hsa-miR-1273d;hsa-miR-1275;hsa-miR-3192-5p;hsa-miR-4433b-3p;hsa-miR-4707-5p;hsa-miR-6726-3p	hsa-miR-1228-5p;hsa-miR-370-3p
+gene:ENSG00000157212	PAXIP1	circRNA:9:2690951|2782846	9:2690951|2782846	2	11	1	hsa-miR-370-3p	hsa-miR-127-3p;hsa-miR-1273d;hsa-miR-146a-5p;hsa-miR-150-3p;hsa-miR-3192-5p;hsa-miR-4433b-3p;hsa-miR-4707-5p;hsa-miR-676-3p;hsa-miR-6788-3p;hsa-miR-99b-3p	hsa-miR-1228-5p

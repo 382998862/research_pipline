@@ -1,0 +1,125 @@
+/**
+ * Created by 北京百迈客生物科技有限公司(zhengj) on 2015/8/1.
+ */
+/*导航样式*/
+body {
+    position: relative;
+}
+
+.bs-docs-sidebar.affix {
+    position: static;
+}
+
+@media (min-width: 768px) {
+    .bs-docs-sidebar {
+        padding-left: 20px;
+    }
+}
+
+.bs-docs-sidenav {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.bs-docs-sidebar .nav > li > a {
+    display: block;
+    padding: 4px 20px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.bs-docs-sidebar .nav > li > a:focus, .bs-docs-sidebar .nav > li > a:hover {
+    padding-left: 19px;
+    text-decoration: none;
+    background-color: transparent;
+
+}
+
+.bs-docs-sidebar .nav > .active:focus > a.js-active-bg, .bs-docs-sidebar .nav > .active:hover > a.js-active-bg, .bs-docs-sidebar .nav > .active > a.js-active-bg {
+    padding-left: 18px;
+    font-weight: 700;
+    color: #2e6da4;
+    background-color: transparent;
+    border-left: 2px solid #428bca;
+}
+
+.bs-docs-sidebar .nav .nav {
+    display: none;
+    padding-bottom: 10px;
+}
+
+.bs-docs-sidebar .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.bs-docs-sidebar .nav .nav > li > a:focus, .bs-docs-sidebar .nav .nav > li > a:hover {
+    padding-left: 29px
+}
+
+.bs-docs-sidebar .nav>.active:focus>a, .bs-docs-sidebar .nav>.active:hover>a, .bs-docs-sidebar .nav>.active>a {
+    padding-left: 18px;
+    font-weight: 700;
+    color: #2e6da4;
+    background-color: transparent;
+    border-left: 2px solid #428bca;
+}
+.back-to-top, .bs-docs-theme-toggle {
+    display: none;
+    padding: 4px 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #999;
+}
+
+.back-to-top:hover, .bs-docs-theme-toggle:hover {
+    color: #563d7c;
+    text-decoration: none;
+}
+
+.bs-docs-theme-toggle {
+    margin-top: 0;
+}
+
+@media (min-width: 768px) {
+    .back-to-top, .bs-docs-theme-toggle {
+        display: block;
+    }
+}
+
+@media (min-width: 992px) {
+    .bs-docs-sidebar .nav > .active > ul {
+        display: block;
+    }
+
+    .bs-docs-sidebar.affix, .bs-docs-sidebar.affix-bottom {
+        width: 213px;
+    }
+
+    .bs-docs-sidebar.affix {
+        position: fixed;
+        top: 134px;
+    }
+
+    .bs-docs-sidebar.affix-bottom {
+        position: absolute;
+    }
+
+    .bs-docs-sidebar.affix .bs-docs-sidenav, .bs-docs-sidebar.affix-bottom .bs-docs-sidenav {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .bs-docs-sidebar.affix, .bs-docs-sidebar.affix-bottom {
+        width: 263px;
+    }
+}
+
+

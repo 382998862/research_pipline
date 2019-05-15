@@ -1,0 +1,42 @@
+######################## database
+tRNA		/share/nas2/database/sRNA_database/GtRNAdb-all-tRNAs.fa
+silver		/share/nas2/database/sRNA_database/SILVA_119_rRNA_2.fa
+rfam		/share/nas2/database/sRNA_database/Rfam.fasta
+repbase		/share/nas2/database/sRNA_database/Repbase_all.fasta
+miRBase         /share/nas2/database/miRBase/v21
+mature          /share/nas2/database/miRBase/v21/mature.fa
+miFam           /share/nas2/database/miRBase/v21/miFam.dat
+
+######################## software
+Rscript                         /share/nas2/genome/biosoft/R/3.1.1/lib64/R/bin/Rscript
+python			        /share/nas2/genome/biosoft/Python/2.7.8/bin/python
+
+fastq_filter_by_Qxx             /share/nas2/genome/bmksoft/tool/fastq_filter_by_Qxx/v1.1/fastq_filter_by_Qxx
+fastq_filter_by_Ns              /share/nas2/genome/bmksoft/tool/fastq_filter_by_Ns/v1.0/fastq_filter_by_Ns
+fastq_qc_stat                   /share/nas2/genome/bmksoft/tool/fastq_qc_stat/v1.1/fastq_qc_stat
+
+distributing_svg	     	/share/nas2/genome/bmksoft/tool/distributing_svg/v4.75/distributing_svg.pl
+svg2png                         /share/nas2/genome/biosoft/distributing_svg_4.74/svg2xxx_release/svg2xxx
+svg2xxx     		        /share/nas2/genome/bmksoft/tool/svg2xxx/v1.0/svg2xxx
+veen_draw       		/share/nas2/genome/bmksoft/tool/veen_draw/v1.0/veen_draw.pl
+
+bowtie          /share/nas2/genome/biosoft/bowtie/current/bowtie
+bowtie_build    /share/nas2/genome/biosoft/bowtie/current/bowtie-build
+
+intersectBed	/share/nas2/genome/biosoft/bedtools2/current/bin/intersectBed
+samtools	/share/nas2/genome/biosoft/samtools/current/samtools
+bedtools	/share/nas2/genome/biosoft/bedtools2/current/bin/bedtools
+
+RNAHybrid       /share/nas2/genome/biosoft/RNAhybrid/current/bin/RNAhybrid
+miranda         /share/nas2/genome/biosoft/miranda/bin/miranda
+
+
+RNAfold         /share/nas2/genome/biosoft/ViennaRNA/current/bin/RNAfold
+randfold        /share/nas2/genome/bin/randfold
+
+check		/share/nas1/xugl/Script/others/scan_dir_for_error_file.py
+
+####################### qsub
+queue		medical.q
+cpu		100
+vf		20G

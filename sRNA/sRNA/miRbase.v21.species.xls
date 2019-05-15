@@ -1,0 +1,226 @@
+#organism    #name
+aqu    Amphimedon queenslandica    堡礁海绵
+nve    Nematostella vectensis        海葵
+hma    Hydra magnipapillata        水螅
+sko    Saccoglossus kowalevskii    囊舌虫
+spu    Strongylocentrotus purpuratus    紫色球海胆
+cin    Ciona intestinalis        玻璃海鞘
+csa    Ciona savignyi            海鞘
+odi    Oikopleura dioica        异体住囊虫
+bfl    Branchiostoma floridae        佛罗里达文昌鱼
+xla    Xenopus laevis            非洲爪蟾
+xtr    Xenopus tropicalis        热带爪蟾
+gga    Gallus gallus            原鸡
+cfa    Canis familiaris        家犬
+mdo    Monodelphis domestica        灰短尾负鼠
+age    Ateles geoffroyi        蜘蛛猴
+lla    Lagothrix lagotricha        绒毛猴
+sla    Saguinus labiatus        白唇柽柳猴
+mml    Macaca mulatta            猕猴
+mne    Macaca nemestrina        豚尾猴
+pbi    Pygathrix bieti            黑仰鼻猴 滇金丝猴 黑腿白臀叶猴
+ggo    Gorilla gorilla            大猩猩
+hsa    Homo sapiens            人类
+ppa    Pan paniscus            倭黑猩猩
+ppy    Pongo pygmaeus            猩猩
+ptr    Pan troglodytes            黑猩猩
+ssy    Symphalangus syndactylus    合趾猿
+lca    Lemur catta            环尾狐猴 节尾狐猴
+oan    Ornithorhynchus anatinus    鸭嘴兽
+cgr    Cricetulus griseus        中国仓鼠 黑线仓鼠 中国地鼠
+mmu    Mus musculus            小家鼠
+rno    Rattus norvegicus        褐家鼠
+bta    Bos taurus            家牛 欧洲牛 泽西牛
+oar    Ovis aries            绵羊
+ssc    Sus scrofa            野猪
+dre    Danio rerio            斑马鱼
+fru    Fugu rubripes            红鳍东方鲀
+tni    Tetraodon nigroviridis        金娃娃 青斑河豚 斑点绿河豚
+aga    Anopheles gambiae        冈比亚按蚊
+ame    Apis mellifera            西方蜜蜂 意大利蜜蜂 欧洲蜜蜂
+bmo    Bombyx mori            蚕 家蚕 中国桑蚕   23
+dan    Drosophila ananassae        嗜凤梨果蝇 果蝇
+der    Drosophila erecta        果蝇
+dgr    Drosophila grimshawi        果蝇
+dme    Drosophila melanogaster        黑腹果蝇 果蝇 黑尾果蝇
+dmo    Drosophila mojavensis        果蝇
+dpe    Drosophila persimilis        果蝇
+dps    Drosophila pseudoobscura    拟暗果蝇 果蝇
+dse    Drosophila sechellia        果蝇
+dsi    Drosophila simulans        果蝇 拟果蝇
+dvi    Drosophila virilis        果蝇 黑果蝇
+dwi    Drosophila willistoni        果蝇
+dya    Drosophila yakuba        果蝇
+lmi    Locusta migratoria        东亚飞蝗 飞蝗
+tca    Tribolium castaneum        赤拟谷盗 拟谷盗 赤拟粉甲
+dpu    Daphnia pulex            蚤状蚤 蚤状溞 美女溞
+isc    Ixodes scapularis        肩突硬蜱 肩板硬蜱 黑脚硬蜱
+cbr    Caenorhabditis briggsae        线虫   23
+cel    Caenorhabditis elegans        秀丽隐杆线虫 线虫 秀丽新小杆线虫  23
+sja    Schistosoma japonicum        日本血吸虫 日本裂体吸虫 日本血吸虫病   23
+sma    Schistosoma mansoni        曼氏血吸虫 由曼氏 曼森血吸虫    20
+sme    Schmidtea mediterranea        真涡虫 地中海圆头涡虫   23
+cte    Capitella teleta        海蠕虫   23
+cla    Cerebratulus lacteus        海洋蠕虫   23=25
+hru    Haliotis rufescens        红鲍螺
+lgi    Lottia gigantea            霸王莲花青螺
+ddi    Dictyostelium discoideum    盘基网柄菌 网柄菌 阿米巴
+cre    Chlamydomonas reinhardtii    莱茵衣藻 莱哈衣藻 绿藻
+pta    Pinus taeda            火炬松
+ppt    Physcomitrella patens        小立碗藓 苔藓 球蒴藓
+smo    Selaginella moellendorffii    江南卷柏 地衣类
+ath    Arabidopsis thaliana        拟南芥 阿拉伯芥 拟南芥菜
+bna    Brassica napus            甘蓝型油菜 油菜 油菜籽
+bol    Brassica oleracea        甘蓝 叶牡丹 羽衣甘蓝
+bra    Brassica rapa            芸苔 菜心 芜菁
+cpa    Carica papaya            番木瓜 木瓜 番木瓜
+gma    Glycine max            大豆 橹豆 黄豆
+lja    Lotus japonicus            百脉根 日本百脉根 百脉根
+mtr    Medicago truncatula        蒺藜苜蓿 蔡藜苜猜 蒺藜状苜蓿
+vun    Vigna unguiculata        豇豆 底物动力学 底物动力学
+ghb    Gossypium herbaceum        草棉 草本棉 草棉花
+ghr    Gossypium hirsutum        陆地棉 棉花
+gra    Gossypium raimondii        雷蒙德氏棉 倍体棉花 中棉
+ptc    Populus trichocarpa        欧洲大叶杨 毛果杨 三角叶杨
+sly    Solanum lycopersicum        西红柿 蕃茄
+vvi    Vitis vinifera            酿酒葡萄 葡萄
+osa    Oryza sativa            水稻 亚洲栽培稻 稻属
+sbi    Sorghum bicolor            高粱 蜀黍 两色蜀黍
+sof    Saccharum officinarum        秀贵甘蔗 甘蔗 白甘蔗
+tae    Triticum aestivum        普通小麦 小麦
+zma    Zea mays            玉米 玉蜀黍
+bkv    BK polyomavirus            汉堡王多瘤病毒
+ebv    Epstein Barr virus        EB病毒 Epstein-Barr病毒
+hcmv    Human cytomegalovirus        人巨细胞病毒
+hiv1    Human immunodeficiency virus 1    人免疫缺陷病毒型
+hsv1    Herpes Simplex Virus 1        单纯疱疹病毒型
+jcv    JC polyomavirus            JC多瘤病毒
+kshv    Kaposi sarcoma-associated herpesvirus    疱疹病毒
+mcmv    Mouse cytomegalovirus        小鼠唾腺巨胞病毒
+mcv    Merkel cell polyomavirus    默克尔细胞多瘤病毒
+mdv1    Mareks disease virus type 1    marek疾病病毒1型
+mdv2    Mareks disease virus type 2    marek疾病病毒2型
+mghv    Mouse gammaherpesvirus 68    γ-疱症病毒 68 老鼠
+rlcv    Rhesus lymphocryptovirus    人类病毒一种
+rrv    Rhesus monkey rhadinovirus    恒河猴疱疹病毒
+sv40    Simian virus 40            猿猴病毒40，猿猴空泡病毒
+hsv2    Herpes Simplex Virus 2        疱疹病毒型 人单纯疱疹病毒型 疱疹病毒
+pvu    Phaseolus vulgaris        菜豆 白腰豆精华 紫花芸豆
+mdm    Malus domestica            苹果
+crm    Caenorhabditis remanei        新杆状线虫   23
+ppc    Pristionchus pacificus        线虫   23
+hbv    Herpes B virus            疱疹B病毒
+bdi    Brachypodium distachyon        二穗短柄草
+aqc    Aquilegia caerulea        耧斗菜
+iltv    Infectious laryngotracheitis virus    传染性喉气管炎病毒 鸡传染性喉气管炎病毒
+hvt    Herpesvirus of turkeys        火鸡疱疹病毒
+peu    Populus euphratica        胡杨
+eca    Equus caballus            马
+ola    Oryzias latipes            青鳉
+bhv1    Bovine herpesvirus 1        牛疱疹病毒型
+csi    Citrus sinensis            甜橙
+ccl    Citrus clementina        克莱门柚
+crt    Citrus reticulata        柑橘 柑桔
+ctr    Citrus trifoliata        柑橘
+bma    Brugia malayi            马来布鲁线虫 马来丝虫    23
+api    Acyrthosiphon pisum        豌豆长管蚜
+rco    Ricinus communis        蓖麻
+aae    Aedes aegypti            埃及伊蚊     63
+gar    Gossypium arboreum        木本棉
+cqu    Culex quinquefasciatus        致倦库蚊
+tgu    Taeniopygia guttata        斑胸草雀 珍珠鸟
+aly    Arabidopsis lyrata        深山南芥 琴叶拟南芥
+esi    Ectocarpus siliculosus        长囊水云
+nvi    Nasonia vitripennis        丽蝇蛹集金小蜂
+ahy    Arachis hypogaea        花生
+gso    Glycine soja            野生大豆
+pab    Picea abies            欧洲云杉 挪威云杉 云杉
+smr    Strigamia maritima        蜈蚣
+ttu    Triticum turgidum        圆锥小麦 肿胀小麦 四倍体小麦
+ata    Aegilops tauschii        山羊草
+hvu    Hordeum vulgare            大麦；大麦芽
+far    Festuca arundinacea        高羊茅
+ngi    Nasonia giraulti        胡蜂
+nlo    Nasonia longicornis        金小蜂
+bgy    Bruguiera gymnorhiza        木榄
+bcy    Bruguiera cylindrica        柱果木榄
+cln    Cunninghamia lanceolata        杉木
+pma    Petromyzon marinus        海七鳃鳗
+tcc    Theobroma cacao            可可树
+xbo    Xenoturbella bocki        异涡虫    23
+egr    Echinococcus granulosus        细粒棘球绦虫      23
+emu    Echinococcus multilocularis    多房棘球绦虫    23
+hme    Heliconius melpomene        红带袖蝶
+gpy    Glottidia pyramidata
+tre    Terebratulina retusa
+rgl    Rehmannia glutinosa        地黄
+cme    Cucumis melo
+                    香瓜
+bpcv1    Bandicoot papillomatosis carcinomatosis virus type 1    袋狸乳头瘤病病毒1型癌扩散
+bpcv2    Bandicoot papillomatosis carcinomatosis virus type 2    袋狸乳头瘤病病毒2型癌扩散
+ssp    Saccharum sp.            糖甘蔗
+rmi    Rhipicephalus microplus        微小牛蜱
+asu    Ascaris suum            猪蛔虫   23
+aca    Anolis carolinensis        安乐蜥 变色蜥
+amg    Acacia mangium            马占相思 相思木
+aau    Acacia auriculiformis        大叶相思 耳果相思
+pti    Phaeodactylum tricornutum    三角褐指藻
+hvsa    Herpesvirus saimiri strain A11    疱疹病毒saimiri应变A11
+meu    Macropus eugenii        尤金袋鼠
+ssl    Salvia sclarea            鼠尾草 欧丹参 南欧丹参
+tur    Tetranychus urticae        二斑叶螨
+sha    Sarcophilus harrisii        塔斯马尼亚魔鬼
+hco    Haemonchus contortus        捻转血矛线虫
+hhv6b    Human herpesvirus 6B        人类疱疹病毒6 b
+dpr    Digitalis purpurea        毛地黄
+nta    Nicotiana tabacum        烟草
+stu    Solanum tuberosum        马铃薯
+egu    Elaeis guineensis        油棕 非洲油棕
+mes    Manihot esculenta        木薯 树薯 花叶木薯
+mse    Manduca sexta            烟草天蛾
+cca    Cynara cardunculus        朝鲜蓟 刺菜蓟
+lus    Linum usitatissimum        亚麻
+pgi    Panax ginseng            人参
+hbr    Hevea brasiliensis        橡胶树
+mja    Marsupenaeus japonicus        日本囊对虾
+prv    Pseudorabies virus        伪狂犬病病毒
+pde    Pinus densata            高山松
+pol    Paralichthys olivaceus        牙鲆 褐牙鲆 牙鲆鱼
+han    Helianthus annuus        向日葵
+hci    Helianthus ciliaris        向日葵
+htu    Helianthus tuberosus        洋姜 菊芋
+hex    Helianthus exilis        向日葵
+har    Helianthus argophyllus        绢毛葵
+hpe    Helianthus petiolaris        原野向日葵
+hpa    Helianthus paradoxus        向日葵脉
+hhi    Hippoglossus hippoglossus    大西洋庸鲽
+blv    Bovine leukemia virus        牛白血病病毒
+ccr    Cyprinus carpio            鲤鱼
+dev    Duck enteritis virus        鸭肠炎病毒
+ppe    Prunus persica            碧桃
+aja    Artibeus jamaicensis        牙买加菓蝠
+ipu    Ictalurus punctatus        斑点叉尾鮰
+cbn    Caenorhabditis brenneri        线虫    23=24
+sci    Sycon ciliatum            海绵
+lco    Leucosolenia complicata        白枝海绵
+prd    Panagrellus redivivus        全齿复活线虫　　23
+pmi    Patiria miniata            海星？？猜测
+lva    Lytechinus variegatus        绿海胆
+ama    Avicennia marina        海榄雌 白骨壤 海茄苳
+bbe    Branchiostoma belcheri        文昌鱼
+ssa    Salmo salar            安大略鲑
+str    Strongyloides ratti        类圆线虫 鼠类圆线虫
+pxy    Plutella xylostella        小菜蛾
+atr    Amborella trichopoda        无油樟
+pin    Phytophthora infestans        致病疫霉
+psj    Phytophthora sojae        大豆疫霉菌
+pra    Phytophthora ramorum        猝死病菌 橡树猝死病
+efu    Eptesicus fuscus        大棕蝠
+gsa    Gyrodactylus salaris        三代虫病
+bhv5    Bovine herpesvirus 5        牛疱疹病毒5
+bfv    Bovine foamy virus        牛泡沫病毒
+chi    Capra hircus            山羊
+ocu    Oryctolagus cuniculus        家兔
+oha    Ophiophagus hannah        眼镜王蛇
+tch    Tupaia chinensis        树鼩滇西亚种(学名:Tupaia belangeri chinensis）
+
